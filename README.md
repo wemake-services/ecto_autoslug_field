@@ -1,5 +1,7 @@
 # EctoAutoslugField
 
+[![Build Status](https://travis-ci.org/sobolevn/ecto_autoslug_field.svg?branch=master)](https://travis-ci.org/sobolevn/ecto_autoslug_field)
+
 **TODO: Add description**
 
 This package is still in development.
