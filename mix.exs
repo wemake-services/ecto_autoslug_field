@@ -2,6 +2,7 @@ defmodule EctoAutoslugField.Mixfile do
   use Mix.Project
 
   @version "0.1.0"
+  @url "https://github.com/sobolevn/ecto_autoslug_field"
 
   def project do
     [
@@ -10,9 +11,12 @@ defmodule EctoAutoslugField.Mixfile do
       elixir: "~> 1.2",
       deps: deps,
 
-      # Hex
+      # Hex:
+      docs: docs,
       description: description,
       package: package,
+      source_url: @url,
+      homepage_url: @url,
 
       # Test coverage:
       test_coverage: [tool: ExCoveralls],
@@ -25,9 +29,6 @@ defmodule EctoAutoslugField.Mixfile do
    ]
   end
 
-  # Configuration for the OTP application
-  #
-  # Type "mix help compile.app" for more information
   def application do
     [applications: [:logger]]
   end
@@ -47,9 +48,11 @@ defmodule EctoAutoslugField.Mixfile do
   end
 
   defp description do
-    """
-    Autoslug field for Ecto.
-    """
+    "Autoslug field for Ecto."
+  end
+
+  defp docs do
+    [extras: ["README.md"], main: "readme"]
   end
 
   defp package do
@@ -57,7 +60,7 @@ defmodule EctoAutoslugField.Mixfile do
       maintainers: ["Nikita Sobolev"],
       licenses: ["MIT"],
       links: %{
-        "GitHub" => "https://github.com/sobolevn/ecto_autoslug_field",
+        "GitHub" => @url,
       },
       files: ~w(mix.exs README.md lib),
     ]

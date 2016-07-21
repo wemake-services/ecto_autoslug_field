@@ -12,12 +12,28 @@ defmodule EctoAutoslugField.SlugGenerator do
         get_change: 3,
       ]
 
+      @spec maybe_generate_slug(
+        Changeset.t, atom() | list(), Keyword.t) :: Changeset.t
+      @spec build_slug(Keyword.t) :: String.t
+
+      # Public functions:
+
+      @doc """
+      This is a public wrapper around `do_build_slug/1` functions.
+
+      It is marked as `defoverridable` and can be overridden.
+      """
       def build_slug(sources) do
         do_build_slug(sources)
       end
 
       defoverridable [build_slug: 1]
 
+      @doc """
+      This function conditionally generates slug.
+
+      This function prepares sources and then calls `do_generate_slug/3`.
+      """
       def maybe_generate_slug(changeset, source, opts) when is_atom(source) do
         source_value = get_field_data(changeset, source, opts)
         do_generate_slug(changeset, source_value, opts)
@@ -31,6 +47,8 @@ defmodule EctoAutoslugField.SlugGenerator do
         do_generate_slug(changeset, cleaned_sources, opts)
       end
 
+      # Private functions:
+
       defp do_generate_slug(changeset, sources, opts) do
         always_change = Keyword.get(opts, :always_change, false)
         slug_key = Keyword.get(opts, :to)
@@ -38,7 +56,7 @@ defmodule EctoAutoslugField.SlugGenerator do
         slug_string = build_slug(sources)
 
         cond do
-          always_change and has_value?(slug_string) ->
+          always_change ->
             put_change(changeset, slug_key, slug_string)
           slug_field == nil and has_value?(slug_string) ->
             put_change(changeset, slug_key, slug_string)
@@ -46,7 +64,7 @@ defmodule EctoAutoslugField.SlugGenerator do
         end
       end
 
-      defp get_field_data(changeset, source, opts) do
+      defp get_field_data(changeset, source, opts) when is_atom(source) do
         always_change = Keyword.get(opts, :always_change, false)
         source_value = get_change(changeset, source, nil)
 
@@ -56,6 +74,7 @@ defmodule EctoAutoslugField.SlugGenerator do
           source_value
         end
       end
+      defp get_field_data(_, source, _) when is_binary(source), do: source
 
       defp has_value?(nil), do: false
       defp has_value?(string) do
