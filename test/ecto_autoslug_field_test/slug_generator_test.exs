@@ -1,16 +1,8 @@
-defmodule EctoAutoslugField.SlugGeneratorTest.Override do
-  use EctoAutoslugField.SlugGenerator
-
-  def build_slug(_) do
-    "test-slug"
-  end
-end
-
 defmodule EctoAutoslugField.SlugGeneratorTest do
   use ExUnit.Case
   import Ecto.Changeset
 
-  use EctoAutoslugField.SlugGenerator
+  import EctoAutoslugField.SlugGenerator
   alias EctoAutoslugField.Test.User
 
   @valid_attrs %{name: "Nikita Sobolev", company: "wemake.services"}
@@ -18,7 +10,10 @@ defmodule EctoAutoslugField.SlugGeneratorTest do
   setup do
     {:ok, %{
       user: User.changeset(%User{}, @valid_attrs),
-      opts: [to: :slug]
+      opts: [
+        to: :slug,
+        slug_builder: &build_slug/1
+      ],
     }}
   end
 
@@ -33,13 +28,4 @@ defmodule EctoAutoslugField.SlugGeneratorTest do
       fixture.user, [:name, :company], fixture.opts)
     assert changeset.changes.slug == "nikita-sobolev-wemake-services"
   end
-
-  test "build_slug override", fixture do
-    alias EctoAutoslugField.SlugGeneratorTest.Override
-
-    changeset = Override.maybe_generate_slug(
-      fixture.user, [:name, :company], fixture.opts)
-    assert changeset.changes.slug == "test-slug"
-  end
-
 end

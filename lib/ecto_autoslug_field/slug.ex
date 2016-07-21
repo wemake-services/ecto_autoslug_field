@@ -1,3 +1,38 @@
+defmodule EctoAutoslugField.SlugBase do
+  @moduledoc """
+  This module defines all fuctions `Slug` module uses.
+  """
+
+  alias Ecto.Changeset
+  alias EctoAutoslugField.SlugGenerator
+
+  @doc """
+  This function is used to generate slug.
+
+  It is called 'maybe' since it may not generate slug for several reasons:
+
+    1. It was already created and `:always_change` option was not set
+    2. The source fields for the slug were empty
+
+  This function takes changeset as an input and returns changeset.
+  """
+  @spec maybe_generate_slug(
+    Changeset.t, atom() | list() | none, Keyword.t) :: Changeset.t
+  def maybe_generate_slug(changeset, sources, opts) do
+    SlugGenerator.maybe_generate_slug(changeset, sources, opts)
+  end
+
+  @doc """
+  This is just a helper function to check for uniqueness.
+
+  It basically just wraps `Ecto.Changeset` and set a proper field name.
+  """
+  @spec unique_constraint(Changeset.t, atom(), Keyword.t) :: Changeset.t
+  def unique_constraint(changeset, to, opts \\ []) do
+    Changeset.unique_constraint(changeset, to, opts)
+  end
+end
+
 defmodule EctoAutoslugField.Slug do
   @moduledoc """
   This module defines all the required functions and modules to work with.
@@ -51,8 +86,8 @@ defmodule EctoAutoslugField.Slug do
     caller = __CALLER__.module
 
     quote bind_quoted: [options: options, caller: caller] do
-      use EctoAutoslugField.SlugGenerator
-      alias Ecto.Changeset
+      alias EctoAutoslugField.SlugBase
+      alias EctoAutoslugField.SlugGenerator
 
       # Opts:
 
@@ -80,21 +115,11 @@ defmodule EctoAutoslugField.Slug do
 
       # Public functions:
 
-      @doc """
-      This function is used to generate slug.
-
-      It is called 'maybe' since it may not generate slug for several reasons:
-
-        1. It was already created and `:always_change` option was not set
-        2. The source fields for slug were empty
-
-      This function takes changeset as an input and returns changeset.
-      """
-      @spec maybe_generate_slug(Changeset.t) :: Changeset.t
       def maybe_generate_slug(changeset) do
         opts = [
           to: unquote(to),
           always_change: unquote(always_change),
+          slug_builder: &build_slug/1
         ]
 
         sources = unquote(from)
@@ -103,15 +128,9 @@ defmodule EctoAutoslugField.Slug do
           _ -> sources
         end
 
-        maybe_generate_slug(changeset, sources, opts)
+        SlugBase.maybe_generate_slug(changeset, sources, opts)
       end
 
-      @doc """
-      This is just a helper function to check for uniqueness.
-
-      It basically just wraps `Ecto.Changeset` and set a proper field name.
-      """
-      @spec unique_constraint(Changeset.t, Keyword.t) :: Changeset.t
       def unique_constraint(changeset, opts \\ []) do
         Changeset.unique_constraint(changeset, unquote(to), opts)
       end
@@ -154,7 +173,7 @@ defmodule EctoAutoslugField.Slug do
       It should return a `binary` or `nil`.
       """
       @spec build_slug(Keyword.t) :: String.t
-      def build_slug(sources), do: super(sources)
+      def build_slug(sources), do: SlugGenerator.build_slug(sources)
 
       defoverridable [get_sources: 2, build_slug: 1]
 
