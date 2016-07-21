@@ -1,23 +1,114 @@
 # EctoAutoslugField
 
-[![Build Status](https://travis-ci.org/sobolevn/ecto_autoslug_field.svg?branch=master)](https://travis-ci.org/sobolevn/ecto_autoslug_field)
+[![Build Status][travis-img]][travis] [![Coverage Status][coverage-img]][coverage] [![Hex Version][hex-img]][hex] [![License][license-img]][license]
 
-**TODO: Add description**
+`ecto_autoslug_field` is a reusable [`Ecto`](https://github.com/elixir-ecto/ecto) library which can automatically create slugs from other fields.
 
-This package is still in development.
+This librabry internaly uses [`slugger`](https://github.com/h4cc/slugger) as a default slug-engine.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+```elixir
+def deps do
+  # installation via hex:
+  [{:ecto_autoslug_field, "~> 0.1"}]
 
-  1. Add ecto_autoslug_field to your list of dependencies in `mix.exs`:
+  # if you want to use github:
+  # [{:ecto_autoslug_field, github: "sobolevn/ecto_autoslug_field"}]
+end
+```
 
-        def deps do
-          [{:ecto_autoslug_field, "~> 0.0.1"}]
-        end
+## Examples
 
-  2. Ensure ecto_autoslug_field is started before your application:
+The simplest example:
 
-        def application do
-          [applications: [:ecto_autoslug_field]]
-        end
+```elixir
+defmodule NameSlug do
+  use EctoAutoslugField.Slug, from: :name, to: :slug
+end
+
+defmodule User do
+  use Ecto.Schema
+  import Ecto.Changeset
+
+  schema "users" do
+    field :name, :string
+    field :slug, NameSlug.Type
+  end
+
+  @required_fields ~w(name)
+  @optional_fields ~w(slug)
+
+  def changeset(model, params \\ :empty) do
+    model
+    |> cast(params, @required_fields, @optional_fields)
+    |> NameSlug.maybe_generate_slug
+    |> NameSlug.unique_constraint
+  end
+end
+```
+
+More complex example:
+
+```elixir
+defmodule ComplexSlug do
+  use EctoAutoslugField.Slug, to: :slug
+
+  def get_sourses(changeset, _opts) do
+    # This function is used to get sources to build slug from:
+    base_fields = [:title]
+
+    if get_change(changeset, :breaking, false) do
+      base_fields ++ ["breaking"]
+    else
+      base_fields
+    end
+  end
+
+  def build_slug(sources) do
+    # Custom slug building rule:
+    sources
+    |> Enum.join("-")
+    |> Slugger.slugify_downcase
+    |> String.replace("-", "+")
+  end
+end
+
+defmodule Article do
+  use Ecto.Schema
+  import Ecto.Changeset
+
+  schema "articles" do
+    field :title, :string
+    field :breaking, :boolean
+    field :slug, ComplexSlug.Type
+  end
+
+  @required_fields ~w(title breaking)
+  @optional_fields ~w(slug)
+
+  def changeset(model, params \\ :empty) do
+    model
+    |> cast(params, @required_fields, @optional_fields)
+    |> ComplexSlug.maybe_generate_slug
+    |> ComplexSlug.unique_constraint
+  end
+end
+```
+
+## Changelog
+
+See [CHANGELOG.md](https://github.com/ueberauth/ecto_autoslug_field/blob/master/CHANGELOG.md).
+
+## License
+
+MIT. Please see [LICENSE.md](https://github.com/sobolevn/ecto_autoslug_field/blob/master/LICENSE.md) for licensing details.
+
+  [travis-img]: https://travis-ci.org/sobolevn/ecto_autoslug_field.svg?branch=master
+  [travis]: https://travis-ci.org/sobolevn/ecto_autoslug_field
+  [coverage-img]: https://coveralls.io/repos/github/sobolevn/ecto_autoslug_field/badge.svg?branch=master
+  [coverage]: https://coveralls.io/github/sobolevn/ecto_autoslug_field?branch=master
+  [hex-img]: https://img.shields.io/hexpm/v/ecto_autoslug_field.svg
+  [hex]: https://hex.pm/packages/ecto_autoslug_field
+  [license-img]: http://img.shields.io/badge/license-MIT-brightgreen.svg
+  [license]: http://opensource.org/licenses/MIT
