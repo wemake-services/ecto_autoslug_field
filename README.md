@@ -20,6 +20,24 @@ def deps do
 end
 ```
 
+## Options
+
+There are several options to configure.
+
+Required:
+
+- `:to` - represents the slug field name where to `put_change` to
+
+Optional:
+
+- `:from` - represents the source fields from which to build slug, if this option is not set you have to ovveride `get_sources/2` function
+- `:always_change` - if this option is set slug will be recreated from the givven sources each time `maybe_generate_slug` function is called
+
+## Functions
+
+- `get_sources/2` - this function is used to get sources for the slug, [docs](https://hexdocs.pm/ecto_autoslug_field/EctoAutoslugField.SlugBase.html#get_sources/2).
+- `build_slug/1` - this function is a place to modify the result slug, [docs](https://hexdocs.pm/ecto_autoslug_field/EctoAutoslugField.SlugBase.html#build_slug/1).
+
 ## Examples
 
 The simplest example:

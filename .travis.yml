@@ -13,8 +13,8 @@ otp_release:
 env: MIX_ENV=test
 
 script:
-  - mix credo --strict
   - mix coveralls.travis
+  - mix credo --strict
 
 notifications:
   email: false

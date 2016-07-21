@@ -31,7 +31,46 @@ defmodule EctoAutoslugField.SlugBase do
   def unique_constraint(changeset, to, opts \\ []) do
     Changeset.unique_constraint(changeset, to, opts)
   end
+
+  @doc """
+  This function is used to get sources for the slug.
+
+  There can be many usecases when this behaviour is required,
+  here are the brief examples:
+
+    1. Conditional slug sources
+    2. Add any data from different sources
+
+  This function should return `list` of atoms or binaries.
+
+  When proccessing the returned list:
+
+    1. `atom`-key is supposed to identify the model field
+    2. `binary`-key is treated as a data itself, it won't be changed
+  """
+  @spec get_sources(Changeset.t, Keyword.t) :: list(atom() | binary())
+  def get_sources(_changeset, _opts) do
+    raise "You must provide ':from' option or 'get_sources/2' function"
+  end
+
+  @doc """
+  This function is used to build the slug itself.
+
+  This function is a place to modify the result slug.
+  For convinience you can call `super(sources)`
+  which will return the slug binary.
+  `super(sources)` uses [`Slugger`](https://github.com/h4cc/slugger),
+  but you can completely change slug-engine to your own.
+
+  If for some reason slug should not be set -
+  just return `nil` or empty `binary`.
+
+  It should return a `binary` or `nil`.
+  """
+  @spec build_slug(Keyword.t) :: String.t
+  def build_slug(sources), do: SlugGenerator.build_slug(sources)
 end
+
 
 defmodule EctoAutoslugField.Slug do
   @moduledoc """
@@ -87,7 +126,6 @@ defmodule EctoAutoslugField.Slug do
 
     quote bind_quoted: [options: options, caller: caller] do
       alias EctoAutoslugField.SlugBase
-      alias EctoAutoslugField.SlugGenerator
 
       # Opts:
 
@@ -132,48 +170,16 @@ defmodule EctoAutoslugField.Slug do
       end
 
       def unique_constraint(changeset, opts \\ []) do
-        Changeset.unique_constraint(changeset, unquote(to), opts)
+        SlugBase.unique_constraint(changeset, unquote(to), opts)
       end
 
       # Client API:
 
-      @doc """
-      This function is used to get sources for the slug.
-
-      There can be many usecases when this behaviour is required,
-      here are the brief examples:
-
-        1. Conditional slug sources
-        2. Add any data from different sources
-
-      This function should return `list` of atoms or binaries.
-
-      When proccessing the returned list:
-
-        1. `atom`-key is supposed to identify the model field
-        2. `binary`-key is treated as a data itself, it won't be changed
-      """
-      @spec get_sources(Changeset.t, Keyword.t) :: list(atom() | binary())
-      def get_sources(_changeset, _opts) do
-        raise "You must provide ':from' option or 'get_sources/2' function"
+      def get_sources(changeset, opts) do
+        SlugBase.get_sources(changeset, opts)
       end
 
-      @doc """
-      This function is used to build the slug itself.
-
-      This function is a place to modify the result slug.
-      For convinience you can call `super(sources)`
-      which will return the slug binary.
-      `super(sources)` uses [`Slugger`](https://github.com/h4cc/slugger),
-      but you can completely change slug-engine to your own.
-
-      If for some reason slug should not be set -
-      just return `nil` or empty `binary`.
-
-      It should return a `binary` or `nil`.
-      """
-      @spec build_slug(Keyword.t) :: String.t
-      def build_slug(sources), do: SlugGenerator.build_slug(sources)
+      def build_slug(sources), do: SlugBase.build_slug(sources)
 
       defoverridable [get_sources: 2, build_slug: 1]
 

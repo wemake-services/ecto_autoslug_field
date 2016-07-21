@@ -1,6 +1,5 @@
 defmodule EctoAutoslugField.SlugGeneratorTest do
   use ExUnit.Case
-  import Ecto.Changeset
 
   import EctoAutoslugField.SlugGenerator
   alias EctoAutoslugField.Test.User
