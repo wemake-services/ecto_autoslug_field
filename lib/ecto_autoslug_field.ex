@@ -1,3 +1,5 @@
 defmodule EctoAutoslugField do
-  @moduledoc false
+  @moduledoc """
+  Autoslug field for Ecto.
+  """
 end

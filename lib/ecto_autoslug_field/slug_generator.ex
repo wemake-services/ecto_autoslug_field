@@ -12,17 +12,12 @@ defmodule EctoAutoslugField.SlugGenerator do
         get_change: 3,
       ]
 
-      @spec maybe_generate_slug(
-        Changeset.t, atom() | list(), Keyword.t) :: Changeset.t
-      @spec build_slug(Keyword.t) :: String.t
-
-      # Public functions:
-
       @doc """
       This is a public wrapper around `do_build_slug/1` functions.
 
       It is marked as `defoverridable` and can be overridden.
       """
+      @spec build_slug(Keyword.t) :: String.t
       def build_slug(sources) do
         do_build_slug(sources)
       end
@@ -34,6 +29,8 @@ defmodule EctoAutoslugField.SlugGenerator do
 
       This function prepares sources and then calls `do_generate_slug/3`.
       """
+      @spec maybe_generate_slug(
+        Changeset.t, atom() | list(), Keyword.t) :: Changeset.t
       def maybe_generate_slug(changeset, source, opts) when is_atom(source) do
         source_value = get_field_data(changeset, source, opts)
         do_generate_slug(changeset, source_value, opts)

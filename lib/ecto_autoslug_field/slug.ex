@@ -54,11 +54,6 @@ defmodule EctoAutoslugField.Slug do
       use EctoAutoslugField.SlugGenerator
       alias Ecto.Changeset
 
-      @spec maybe_generate_slug(Changeset.t) :: Changeset.t
-      @spec unique_constraint(Changeset.t, Keyword.t) :: Changeset.t
-      @spec get_sources(Changeset.t, Keyword.t) :: list(atom() | binary())
-      @spec build_slug(Keyword.t) :: String.t
-
       # Opts:
 
       from = Keyword.get(options, :from, nil)
@@ -95,6 +90,7 @@ defmodule EctoAutoslugField.Slug do
 
       This function takes changeset as an input and returns changeset.
       """
+      @spec maybe_generate_slug(Changeset.t) :: Changeset.t
       def maybe_generate_slug(changeset) do
         opts = [
           to: unquote(to),
@@ -115,6 +111,7 @@ defmodule EctoAutoslugField.Slug do
 
       It basically just wraps `Ecto.Changeset` and set a proper field name.
       """
+      @spec unique_constraint(Changeset.t, Keyword.t) :: Changeset.t
       def unique_constraint(changeset, opts \\ []) do
         Changeset.unique_constraint(changeset, unquote(to), opts)
       end
@@ -137,6 +134,7 @@ defmodule EctoAutoslugField.Slug do
         1. `atom`-key is supposed to identify the model field
         2. `binary`-key is treated as a data itself, it won't be changed
       """
+      @spec get_sources(Changeset.t, Keyword.t) :: list(atom() | binary())
       def get_sources(_changeset, _opts) do
         raise "You must provide ':from' option or 'get_sources/2' function"
       end
@@ -155,6 +153,7 @@ defmodule EctoAutoslugField.Slug do
 
       It should return a `binary` or `nil`.
       """
+      @spec build_slug(Keyword.t) :: String.t
       def build_slug(sources), do: super(sources)
 
       defoverridable [get_sources: 2, build_slug: 1]
