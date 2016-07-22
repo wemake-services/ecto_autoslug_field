@@ -41,14 +41,14 @@ defmodule EctoAutoslugField.SlugBase do
     1. Conditional slug sources
     2. Add any data from different sources
 
-  This function should return `list` of atoms or binaries.
+  This function should return `list` of atoms or binaries, or `nil`.
 
   When proccessing the returned list:
 
     1. `atom`-key is supposed to identify the model field
     2. `binary`-key is treated as a data itself, it won't be changed
   """
-  @spec get_sources(Changeset.t, Keyword.t) :: list(atom() | binary())
+  @spec get_sources(Changeset.t, Keyword.t) :: list(atom() | binary()) | none
   def get_sources(_changeset, _opts) do
     raise "You must provide ':from' option or 'get_sources/2' function"
   end
@@ -61,6 +61,11 @@ defmodule EctoAutoslugField.SlugBase do
   which will return the slug binary.
   `super(sources)` uses [`Slugger`](https://github.com/h4cc/slugger),
   but you can completely change slug-engine to your own.
+
+  Note: this function will only be called if `sources` is not empty.
+  Also important this function will be called only
+  once for the normal workflow. And every time for `:always_change`.
+  So you can do some heavy computations.
 
   If for some reason slug should not be set -
   just return `nil` or empty `binary`.

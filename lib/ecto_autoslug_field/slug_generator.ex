@@ -13,7 +13,7 @@ defmodule EctoAutoslugField.SlugGenerator do
   @doc """
   This is a public wrapper around `do_build_slug/1` functions.
 
-  It is marked as `defoverridable` and can be overridden.
+  Default slug builder.
   """
   @spec build_slug(Keyword.t) :: String.t
   def build_slug(sources) do
@@ -35,7 +35,7 @@ defmodule EctoAutoslugField.SlugGenerator do
     cleaned_sources =
       sources
       |> Enum.map(fn(v) -> get_field_data(changeset, v, opts) end)
-      |> Enum.filter(fn(v) -> v != nil end)
+      |> Enum.filter(fn(v) -> has_value?(v) end)
 
     do_generate_slug(changeset, cleaned_sources, opts)
   end
@@ -55,15 +55,24 @@ defmodule EctoAutoslugField.SlugGenerator do
     always_change = Keyword.get(opts, :always_change, false)
 
     slug_field = Map.get(changeset.model, slug_key)
-    slug_string = slug_builder.(sources)
 
-    cond do
-      always_change ->
-        put_change(changeset, slug_key, slug_string)
-      slug_field == nil and has_value?(slug_string) ->
-        put_change(changeset, slug_key, slug_string)
-      true -> changeset
+    if always_change == true or slug_field == nil do
+      # We only generate slug on two occasions:
+      # 1. `always_change` flag is set to true
+      # 2. `slug_field` is not set, meaning it is a first-time-slug
+      do_put_change(changeset, slug_key, slug_builder, sources)
+    else
+      changeset
     end
+  end
+
+  defp do_put_change(changeset, _, _, []), do: changeset
+  defp do_put_change(changeset, _, _, nil), do: changeset
+  defp do_put_change(changeset, slug_key, slug_builder, sources) do
+    # `slug_builder` will be called only if the slug-building occasion
+    # was met and the `sources` is not empty.
+    slug_string = slug_builder.(sources)
+    put_change(changeset, slug_key, slug_string)
   end
 
   defp get_field_data(changeset, source, opts) when is_atom(source) do

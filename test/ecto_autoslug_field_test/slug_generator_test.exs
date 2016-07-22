@@ -27,4 +27,9 @@ defmodule EctoAutoslugField.SlugGeneratorTest do
       fixture.user, [:name, :company], fixture.opts)
     assert changeset.changes.slug == "nikita-sobolev-wemake-services"
   end
+
+  test "maybe_generate_slug with 'nil'", fixture do
+    changeset = maybe_generate_slug(fixture.user, nil, fixture.opts)
+    refute Map.has_key?(changeset.changes, fixture.opts[:to])
+  end
 end

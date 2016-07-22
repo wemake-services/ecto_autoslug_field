@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 0.1.3
+
+- Now `build_slug/1` is called only when needed, changed docs appropriately
+- Replaced `cond` inside `do_generate_slug/3` with more obvious `if`
+- Changed tests structure, reached 100% coverage
+
 ## Version 0.1.2
 
 - Moved `get_sources/2` and `build_slug/1` definitions into `SlugBase`
@@ -8,8 +14,8 @@
 
 ## Version 0.1.1
 
-- Since the docs inside `__using__` were unreachable the desing of application was changed
-- Now `opts` keyword-list cointains `:slug_build` parameter with a `build_slug` callback
+- Since the docs inside `__using__` were unreachable the design of application was changed
+- Now `opts` keyword-list contains `:slug_build` parameter with a `build_slug` callback
 - Also `coverage` information is updated, since more code is reachable now
 
 ## Version 0.1.0
