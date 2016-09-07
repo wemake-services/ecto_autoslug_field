@@ -129,14 +129,14 @@ defmodule EctoAutoslugField.Slug do
   defmacro __using__(options) do
     caller = __CALLER__.module
 
-    quote bind_quoted: [options: options, caller: caller] do
+    quote location: :keep, bind_quoted: [options: options, caller: caller] do
       alias EctoAutoslugField.SlugBase
 
       # Opts:
 
-      from = Keyword.get(options, :from, nil)
-      to = Keyword.get(options, :to, :slug)
-      always_change = Keyword.get(options, :always_change, false)
+      @from Keyword.get(options, :from, nil)
+      @to Keyword.get(options, :to, :slug)
+      @always_change Keyword.get(options, :always_change, false)
 
       # Custom Type:
 
@@ -160,22 +160,21 @@ defmodule EctoAutoslugField.Slug do
 
       def maybe_generate_slug(changeset) do
         opts = [
-          to: unquote(to),
-          always_change: unquote(always_change),
+          to: @to,
+          always_change: @always_change,
           slug_builder: &build_slug/1
         ]
 
-        sources = unquote(from)
-        sources = case sources do
+        sources = case @from do
           nil -> get_sources(changeset, opts)
-          _ -> sources
+          _ -> @from
         end
 
         SlugBase.maybe_generate_slug(changeset, sources, opts)
       end
 
       def unique_constraint(changeset, opts \\ []) do
-        SlugBase.unique_constraint(changeset, unquote(to), opts)
+        SlugBase.unique_constraint(changeset, @to, opts)
       end
 
       # Client API:

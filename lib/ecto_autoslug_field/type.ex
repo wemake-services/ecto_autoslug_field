@@ -4,6 +4,7 @@ defmodule EctoAutoslugField.Type do
   """
 
   @behaviour Ecto.Type
+
   def type(), do: :string
 
   def cast(string) when is_binary(string), do: {:ok, string}

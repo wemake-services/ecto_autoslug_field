@@ -9,12 +9,12 @@ defmodule EctoAutoslugField.Mixfile do
       app: :ecto_autoslug_field,
       version: @version,
       elixir: "~> 1.2",
-      deps: deps,
+      deps: deps(),
 
       # Hex:
-      docs: docs,
-      description: description,
-      package: package,
+      docs: docs(),
+      description: description(),
+      package: package(),
       source_url: @url,
       homepage_url: @url,
 
@@ -39,7 +39,7 @@ defmodule EctoAutoslugField.Mixfile do
       {:ecto, ">= 0.10.0"},
 
       # Slugs:
-      {:slugger, "~> 0.1.0"},
+      {:slugger, ">= 0.1.0"},
 
       # Testing:
       {:excoveralls, "~> 0.5", only: :test},
