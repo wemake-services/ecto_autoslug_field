@@ -17,6 +17,9 @@ def deps do
 
   # if you want to use github:
   # [{:ecto_autoslug_field, github: "sobolevn/ecto_autoslug_field"}]
+  
+  # if you need support for older Ecto versions (< 2.0):
+  # [{:ecto_autoslug_field, "0.1.3"}]
 end
 ```
 
