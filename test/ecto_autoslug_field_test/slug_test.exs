@@ -72,8 +72,9 @@ defmodule EctoAutoslugField.SlugTest do
     assert %{
       constraint: "user_simple_slug_index",
       field: :simple_slug,
-      message: "has already been taken",
+      error: {"has already been taken", []},
       type: :unique,
+      match: :exact
     } in constrained.constraints
   end
 end
