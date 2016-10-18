@@ -36,7 +36,7 @@ defmodule EctoAutoslugField.Mixfile do
   defp deps do
     [
       # Database:
-      {:ecto, ">= 0.10.0"},
+      {:ecto, "~> 2.0.0"},
 
       # Slugs:
       {:slugger, ">= 0.1.0"},
