@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## Version 0.2.0
+
+- Since this version only `ecto` 2 and above are supported
+- Updated docs on how to use this package with older `ecto`
+- Credo is not working with this release, please see https://github.com/sobolevn/ecto_autoslug_field/issues/5
+
 ## Version 0.1.3
 
 - Now `build_slug/1` is called only when needed, changed docs appropriately

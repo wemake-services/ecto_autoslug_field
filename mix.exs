@@ -1,7 +1,7 @@
 defmodule EctoAutoslugField.Mixfile do
   use Mix.Project
 
-  @version "0.1.3"
+  @version "0.2.0"
   @url "https://github.com/sobolevn/ecto_autoslug_field"
 
   def project do
@@ -43,10 +43,10 @@ defmodule EctoAutoslugField.Mixfile do
 
       # Testing:
       {:excoveralls, "~> 0.5", only: :test},
-      {:credo, "~> 0.4", only: [:dev, :test]},
+      {:credo, "~> 0.4.14", only: [:dev, :test]},
 
       # Documentation:
-      {:ex_doc, ">= 0.0.0", only: :dev},
+      {:ex_doc, "~> 0.14", only: :dev},
     ]
   end
 

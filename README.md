@@ -1,6 +1,6 @@
 # EctoAutoslugField
 
-[![Build Status][travis-img]][travis] [![Coverage Status][coverage-img]][coverage] [![Hex Version][hex-img]][hex] [![License][license-img]][license]
+[![Build Status](https://travis-ci.org/sobolevn/ecto_autoslug_field.svg?branch=master)](https://travis-ci.org/sobolevn/ecto_autoslug_field) [![Coverage Status](https://coveralls.io/repos/github/sobolevn/ecto_autoslug_field/badge.svg?branch=master)](https://coveralls.io/github/sobolevn/ecto_autoslug_field?branch=master) [![Hex Version](https://img.shields.io/hexpm/v/ecto_autoslug_field.svg)](https://hex.pm/packages/ecto_autoslug_field) [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
 `ecto_autoslug_field` is a reusable [`Ecto`](https://github.com/elixir-ecto/ecto) library which can automatically create slugs from other fields.
 
@@ -12,12 +12,12 @@ You can find the full documentation online: [docs](https://hexdocs.pm/ecto_autos
 
 ```elixir
 def deps do
-  # installation via hex:
-  [{:ecto_autoslug_field, "~> 0.1"}]
+  # installation via hex (version 0.2 only supports Ecto >= 2.0):
+  [{:ecto_autoslug_field, "~> 0.2"}]
 
   # if you want to use github:
   # [{:ecto_autoslug_field, github: "sobolevn/ecto_autoslug_field"}]
-  
+
   # if you need support for older Ecto versions (< 2.0):
   # [{:ecto_autoslug_field, "0.1.3"}]
 end
@@ -126,12 +126,3 @@ See [CHANGELOG.md](https://github.com/ueberauth/ecto_autoslug_field/blob/master/
 ## License
 
 MIT. Please see [LICENSE.md](https://github.com/sobolevn/ecto_autoslug_field/blob/master/LICENSE.md) for licensing details.
-
-  [travis-img]: https://travis-ci.org/sobolevn/ecto_autoslug_field.svg?branch=master
-  [travis]: https://travis-ci.org/sobolevn/ecto_autoslug_field
-  [coverage-img]: https://coveralls.io/repos/github/sobolevn/ecto_autoslug_field/badge.svg?branch=master
-  [coverage]: https://coveralls.io/github/sobolevn/ecto_autoslug_field?branch=master
-  [hex-img]: https://img.shields.io/hexpm/v/ecto_autoslug_field.svg
-  [hex]: https://hex.pm/packages/ecto_autoslug_field
-  [license-img]: http://img.shields.io/badge/license-MIT-brightgreen.svg
-  [license]: http://opensource.org/licenses/MIT
