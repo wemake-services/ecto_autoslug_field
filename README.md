@@ -121,7 +121,7 @@ end
 
 ## Changelog
 
-See [CHANGELOG.md](https://github.com/ueberauth/ecto_autoslug_field/blob/master/CHANGELOG.md).
+See [CHANGELOG.md](https://github.com/sobolevn/ecto_autoslug_field/blob/master/CHANGELOG.md).
 
 ## License
 
