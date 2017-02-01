@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Version 0.2.1
+
+- Added `credo` support
+- Added `elixir` version 1.4 support
+
 ## Version 0.2.0
 
 - Since this version only `ecto` 2 and above are supported
