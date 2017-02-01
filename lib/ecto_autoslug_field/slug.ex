@@ -76,9 +76,8 @@ defmodule EctoAutoslugField.SlugBase do
   def build_slug(sources), do: SlugGenerator.build_slug(sources)
 end
 
-
 defmodule EctoAutoslugField.Slug do
-  @moduledoc """
+  @moduledoc ~S"""
   This module defines all the required functions and modules to work with.
 
   ## Examples
@@ -150,7 +149,7 @@ defmodule EctoAutoslugField.Slug do
 
         alias EctoAutoslugField.Type
 
-        def type(), do: Type.type()
+        def type, do: Type.type()
         def cast(value), do: Type.cast(value)
         def load(value), do: Type.load(value)
         def dump(value), do: Type.dump(value)

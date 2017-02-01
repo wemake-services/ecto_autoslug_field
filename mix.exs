@@ -39,11 +39,11 @@ defmodule EctoAutoslugField.Mixfile do
       {:ecto, "~> 2.0"},
 
       # Slugs:
-      {:slugger, ">= 0.1.0"},
+      {:slugger, "~> 0.1"},
 
       # Testing:
       {:excoveralls, "~> 0.5", only: :test},
-      {:credo, "~> 0.4.14", only: [:dev, :test]},
+      {:credo, "~> 0.6", only: [:dev, :test]},
 
       # Documentation:
       {:ex_doc, "~> 0.14", only: :dev},
