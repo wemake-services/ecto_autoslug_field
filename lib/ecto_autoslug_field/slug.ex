@@ -49,8 +49,8 @@ defmodule EctoAutoslugField.SlugBase do
     2. `binary`-key is treated as a data itself, it won't be changed
   """
   @spec get_sources(Changeset.t, Keyword.t) :: list(atom() | binary()) | none
-  def get_sources(_changeset, _opts) do
-    raise "You must provide ':from' option or 'get_sources/2' function"
+  def get_sources(_changeset, %{from: from} = _opts) do
+    [from]
   end
 
   @doc """
@@ -164,10 +164,7 @@ defmodule EctoAutoslugField.Slug do
           slug_builder: &build_slug/1
         ]
 
-        sources = case @from do
-          nil -> get_sources(changeset, opts)
-          _ -> @from
-        end
+        sources = @from || get_sources(changeset, opts)
 
         SlugBase.maybe_generate_slug(changeset, sources, opts)
       end
