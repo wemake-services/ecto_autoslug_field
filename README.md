@@ -4,7 +4,7 @@
 
 `ecto_autoslug_field` is a reusable [`Ecto`](https://github.com/elixir-ecto/ecto) library which can automatically create slugs from other fields.
 
-This librabry internaly uses [`slugger`](https://github.com/h4cc/slugger) as a default slug-engine.
+This library internally uses [`slugger`](https://github.com/h4cc/slugger) as it's default slug-engine.
 
 You can find the full documentation online: [docs](https://hexdocs.pm/ecto_autoslug_field).
 
