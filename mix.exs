@@ -47,6 +47,8 @@ defmodule EctoAutoslugField.Mixfile do
 
       # Documentation:
       {:ex_doc, "~> 0.14", only: :dev},
+
+      {:dialyxir, only: :dev},
     ]
   end
 

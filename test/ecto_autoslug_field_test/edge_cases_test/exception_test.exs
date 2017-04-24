@@ -25,7 +25,7 @@ defmodule EctoAutoslugField.SlugTest.EdgeCases.Exception do
   end
 
   test "no sources is provided, exception" do
-    assert_raise RuntimeError, fn ->
+    assert_raise FunctionClauseError, fn ->
       Article.changeset(%Article{}, %{title: "News"})
     end
   end
