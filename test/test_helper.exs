@@ -25,7 +25,7 @@ defmodule EctoAutoslugField.Test.TestSchema.ConditionalSlug do
   use EctoAutoslugField.Slug, to: :conditional_slug
 
   def get_sources(changeset, _opts) do
-    if Map.has_key?(changeset.changes, :company) do
+    if Map.has_key?(changeset.changes(), :company) do
       [:name, :company]
     else
       [:name]
@@ -63,19 +63,20 @@ defmodule EctoAutoslugField.Test.User do
     field :changing_slug, AlwaysChangeSlug.Type
   end
 
-  @required_fields ~w(name)
-  @optional_fields ~w(
-    company
-    simple_slug
-    multiple_sources_slug
-    complex_slug
-    conditional_slug
-    changing_slug
-  )
+  def changeset(model, params \\ :invalid) do
+    all_fields = [
+      :name,
+      :company,
+      :simple_slug,
+      :multiple_sources_slug,
+      :complex_slug,
+      :conditional_slug,
+      :changing_slug,
+    ]
 
-  def changeset(model, params \\ :empty) do
     model
-    |> cast(params, @required_fields, @optional_fields)
+    |> cast(params, all_fields)
+    |> validate_required([:name])
     |> SimpleSlug.maybe_generate_slug
     |> MultipleSourcesSlug.maybe_generate_slug
     |> ComplexSlug.maybe_generate_slug

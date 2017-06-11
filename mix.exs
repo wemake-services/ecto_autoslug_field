@@ -5,51 +5,48 @@ defmodule EctoAutoslugField.Mixfile do
   @url "https://github.com/sobolevn/ecto_autoslug_field"
 
   def project do
-    [
-      app: :ecto_autoslug_field,
-      version: @version,
-      elixir: "~> 1.2",
-      deps: deps(),
+    [app: :ecto_autoslug_field,
+     version: @version,
+     elixir: "~> 1.2",
+     deps: deps(),
 
-      # Hex:
-      docs: docs(),
-      description: description(),
-      package: package(),
-      source_url: @url,
-      homepage_url: @url,
+     # Hex:
+     docs: docs(),
+     description: description(),
+     package: package(),
+     source_url: @url,
+     homepage_url: @url,
 
-      # Test coverage:
-      test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [
-        "coveralls": :test,
-        "coveralls.detail": :test,
-        "coveralls.post": :test,
-        "coveralls.html": :test,
-      ],
-   ]
+     # Test coverage:
+     test_coverage: [tool: ExCoveralls],
+     preferred_cli_env: [
+       "coveralls": :test,
+       "coveralls.detail": :test,
+       "coveralls.post": :test,
+       "coveralls.html": :test,
+     ],
+
+     # Dialyzer:
+     dialyzer: [plt_add_deps: :apps_direct, plt_add_apps: [:ecto]]]
   end
 
   def application do
-    [applications: [:logger]]
+    [extra_applications: [:logger]]
   end
 
   defp deps do
-    [
-      # Database:
-      {:ecto, "~> 2.0"},
+    [{:ecto, "~> 2.1"},
 
-      # Slugs:
-      {:slugger, "~> 0.1"},
+     # Slugs:
+     {:slugger, "~> 0.2"},
 
-      # Testing:
-      {:excoveralls, "~> 0.5", only: :test},
-      {:credo, "~> 0.6", only: [:dev, :test]},
+     # Testing:
+     {:excoveralls, "~> 0.5", only: :test},
+     {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
+     {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
 
-      # Documentation:
-      {:ex_doc, "~> 0.14", only: :dev},
-
-      {:dialyxir, only: :dev},
-    ]
+     # Documentation:
+     {:ex_doc, ">= 0.0.0", only: :dev}]
   end
 
   defp description do
@@ -61,13 +58,9 @@ defmodule EctoAutoslugField.Mixfile do
   end
 
   defp package do
-    [
-      maintainers: ["Nikita Sobolev"],
-      licenses: ["MIT"],
-      links: %{
-        "GitHub" => @url,
-      },
-      files: ~w(mix.exs README.md lib),
-    ]
+    [maintainers: ["Nikita Sobolev"],
+     licenses: ["MIT"],
+     links: %{"GitHub" => @url},
+     files: ~w(mix.exs README.md lib)]
   end
 end

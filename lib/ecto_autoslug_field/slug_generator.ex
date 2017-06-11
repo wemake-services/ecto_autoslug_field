@@ -11,7 +11,7 @@ defmodule EctoAutoslugField.SlugGenerator do
   ]
 
   @doc """
-  This is a public wrapper around `do_build_slug/1` functions.
+  This is a public wrapper around `do_build_slug/1` functions.
 
   Default slug builder.
   """
@@ -21,7 +21,7 @@ defmodule EctoAutoslugField.SlugGenerator do
   end
 
   @doc """
-  This function conditionally generates slug.
+  This function conditionally generates slug.
 
   This function prepares sources and then calls `do_generate_slug/3`.
   """

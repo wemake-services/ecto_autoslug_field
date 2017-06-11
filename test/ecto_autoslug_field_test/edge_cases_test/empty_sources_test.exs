@@ -18,12 +18,10 @@ defmodule EctoAutoslugField.SlugTest.EdgeCases.EmptySources do
       field :slug, StringSource.Type
     end
 
-    @required_fields ~w(title)
-    @optional_fields ~w(slug)
-
-    def changeset(model, params \\ :empty) do
+    def changeset(model, params \\ :invalid) do
       model
-      |> cast(params, @required_fields, @optional_fields)
+      |> cast(params, [:title, :slug])
+      |> validate_required([:title])
       |> StringSource.maybe_generate_slug
     end
   end
