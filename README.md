@@ -12,14 +12,17 @@ You can find the full documentation online: [docs](https://hexdocs.pm/ecto_autos
 
 ```elixir
 def deps do
-  # installation via hex (version 0.2 only supports Ecto >= 2.0):
-  [{:ecto_autoslug_field, "~> 0.2"}]
+  # installation via hex (version 0.3 only supports `{:ecto, "~> 2.1"}`):
+  [{:ecto_autoslug_field, "~> 0.3"}]
 
   # if you want to use github:
   # [{:ecto_autoslug_field, github: "sobolevn/ecto_autoslug_field"}]
 
+  # if you need support for `{:ecto, "~> 2.0"}`:
+  # [{:ecto_autoslug_field, "~> 0.2"}]
+
   # if you need support for older Ecto versions (< 2.0):
-  # [{:ecto_autoslug_field, "0.1.3"}]
+  # [{:ecto_autoslug_field, "~> 0.1.3"}]
 end
 ```
 
@@ -33,8 +36,8 @@ Required:
 
 Optional:
 
-- `:from` - represents the source fields from which to build slug, if this option is not set you have to ovveride `get_sources/2` function
-- `:always_change` - if this option is set slug will be recreated from the givven sources each time `maybe_generate_slug` function is called
+- `:from` - represents the source fields from which to build slug, if this option is not set you have to override `get_sources/2` function
+- `:always_change` - if this option is set slug will be recreated from the given sources each time `maybe_generate_slug` function is called
 
 ## Functions
 
