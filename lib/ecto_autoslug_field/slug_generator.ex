@@ -15,8 +15,8 @@ defmodule EctoAutoslugField.SlugGenerator do
 
   Default slug builder.
   """
-  @spec build_slug(Keyword.t) :: String.t
-  def build_slug(sources) do
+  @spec build_slug(Keyword.t, Changeset.t) :: String.t
+  def build_slug(sources, _changeset) do
     do_build_slug(sources)
   end
 
@@ -71,7 +71,7 @@ defmodule EctoAutoslugField.SlugGenerator do
   defp do_put_change(changeset, slug_key, slug_builder, sources) do
     # `slug_builder` will be called only if the slug-building occasion
     # was met and the `sources` is not empty.
-    slug_string = slug_builder.(sources)
+    slug_string = slug_builder.(sources, changeset)
     put_change(changeset, slug_key, slug_string)
   end
 
