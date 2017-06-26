@@ -11,7 +11,7 @@ defmodule EctoAutoslugField.SlugGeneratorTest do
       user: User.changeset(%User{}, @valid_attrs),
       opts: [
         to: :slug,
-        slug_builder: &build_slug/1
+        slug_builder: &build_slug/2
       ],
     }}
   end
