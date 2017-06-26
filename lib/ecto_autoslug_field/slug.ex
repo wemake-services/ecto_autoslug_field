@@ -57,7 +57,7 @@ defmodule EctoAutoslugField.SlugBase do
   This function is used to build the slug itself.
 
   This function is a place to modify the result slug.
-  For convenience you can call `super(sources)`
+  For convenience you can call `super(sources, changeset)`
   which will return the slug binary.
   `super(sources)` uses [`Slugger`](https://github.com/h4cc/slugger),
   but you can completely change slug-engine to your own.
@@ -72,8 +72,8 @@ defmodule EctoAutoslugField.SlugBase do
 
   It should return a `binary` or `nil`.
   """
-  @spec build_slug(Keyword.t) :: String.t
-  def build_slug(sources), do: SlugGenerator.build_slug(sources)
+  @spec build_slug(Keyword.t, Changeset.t) :: String.t
+  def build_slug(sources, changeset), do: SlugGenerator.build_slug(sources, changeset)
 end
 
 defmodule EctoAutoslugField.Slug do
@@ -88,7 +88,7 @@ defmodule EctoAutoslugField.Slug do
         use EctoAutoslugField.Slug, from: :name_field, to: :slug_field
       end
 
-  It is also possible to override `get_sources/2` and `build_slug/1` functions
+  It is also possible to override `get_sources/2` and `build_slug/2` functions
   which are part of the AutoslugField's API.
 
   More complex example with the optional sources
@@ -108,8 +108,8 @@ defmodule EctoAutoslugField.Slug do
           end
         end
 
-        def build_slug(sources) do
-          super(sources)  # Calls the `SlugGenerator.build_slug/1`
+        def build_slug(sources, changeset) do
+          super(sources, changeset)  # Calls the `SlugGenerator.build_slug/1`
           |> String.replace("-", "+")
         end
       end
@@ -162,7 +162,7 @@ defmodule EctoAutoslugField.Slug do
           from: @from,
           to: @to,
           always_change: @always_change,
-          slug_builder: &build_slug/1
+          slug_builder: &build_slug/2
         ]
 
         sources = if opts[:from] == nil do
@@ -184,9 +184,9 @@ defmodule EctoAutoslugField.Slug do
         SlugBase.get_sources(changeset, opts)
       end
 
-      def build_slug(sources), do: SlugBase.build_slug(sources)
+      def build_slug(sources, changeset), do: SlugBase.build_slug(sources, changeset)
 
-      defoverridable [get_sources: 2, build_slug: 1]
+      defoverridable [get_sources: 2, build_slug: 2]
 
     end
   end

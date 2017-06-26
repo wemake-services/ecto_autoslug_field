@@ -14,9 +14,9 @@ defmodule EctoAutoslugField.Test.TestSchema.ComplexSlug do
 
   def get_sources(_changeset, _opts), do: [:name, :company]
 
-  def build_slug(sources) do
+  def build_slug(sources, changeset) do
     sources
-    |> super
+    |> super(changeset)
     |> String.replace("-", "+")
   end
 end
