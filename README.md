@@ -42,7 +42,7 @@ Optional:
 ## Functions
 
 - `get_sources/2` - this function is used to get sources for the slug, [docs](https://hexdocs.pm/ecto_autoslug_field/EctoAutoslugField.SlugBase.html#get_sources/2).
-- `build_slug/1` - this function is a place to modify the result slug, [docs](https://hexdocs.pm/ecto_autoslug_field/EctoAutoslugField.SlugBase.html#build_slug/1).
+- `build_slug/2` - this function is a place to modify the result slug, [docs](https://hexdocs.pm/ecto_autoslug_field/EctoAutoslugField.SlugBase.html#build_slug/2).
 
 ## Examples
 
@@ -91,7 +91,7 @@ defmodule ComplexSlug do
     end
   end
 
-  def build_slug(sources) do
+  def build_slug(sources, _changeset) do
     # Custom slug building rule:
     sources
     |> Enum.join("-")
