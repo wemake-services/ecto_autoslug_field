@@ -72,7 +72,7 @@ defmodule EctoAutoslugField.SlugBase do
 
   It should return a `binary` or `nil`.
   """
-  @spec build_slug(Keyword.t, Changeset.t) :: String.t
+  @spec build_slug(Keyword.t, Changeset.t | nil) :: String.t
   def build_slug(sources, changeset), do: SlugGenerator.build_slug(sources, changeset)
 end
 
@@ -184,9 +184,15 @@ defmodule EctoAutoslugField.Slug do
         SlugBase.get_sources(changeset, opts)
       end
 
-      def build_slug(sources, changeset), do: SlugBase.build_slug(sources, changeset)
+      def build_slug(sources) do
+        SlugBase.build_slug(sources, nil)
+      end
 
-      defoverridable [get_sources: 2, build_slug: 2]
+      def build_slug(sources, _changeset) do
+        build_slug(sources)
+      end
+
+      defoverridable [get_sources: 2, build_slug: 2, build_slug: 1]
 
     end
   end
