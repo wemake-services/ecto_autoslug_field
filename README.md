@@ -49,78 +49,38 @@ Optional:
 The simplest example:
 
 ```elixir
-defmodule NameSlug do
-  use EctoAutoslugField.Slug, from: :name, to: :slug
+defmodule EctoSlugs.Blog.Article.TitleSlug do
+  use EctoAutoslugField.Slug, from: :title, to: :slug
 end
 
-defmodule User do
+defmodule EctoSlugs.Blog.Article do
   use Ecto.Schema
   import Ecto.Changeset
+  alias EctoSlugs.Blog.Article
+  alias EctoSlugs.Blog.Article.TitleSlug
 
-  schema "users" do
-    field :name, :string
-    field :slug, NameSlug.Type
-  end
-
-  @required_fields ~w(name)
-  @optional_fields ~w(slug)
-
-  def changeset(model, params \\ :empty) do
-    model
-    |> cast(params, @required_fields, @optional_fields)
-    |> NameSlug.maybe_generate_slug
-    |> NameSlug.unique_constraint
-  end
-end
-```
-
-More complex example:
-
-```elixir
-defmodule ComplexSlug do
-  use EctoAutoslugField.Slug, to: :slug
-
-  def get_sourses(changeset, _opts) do
-    # This function is used to get sources to build slug from:
-    base_fields = [:title]
-
-    if get_change(changeset, :breaking, false) do
-      base_fields ++ ["breaking"]
-    else
-      base_fields
-    end
-  end
-
-  def build_slug(sources, _changeset) do
-    # Custom slug building rule:
-    sources
-    |> Enum.join("-")
-    |> Slugger.slugify_downcase
-    |> String.replace("-", "+")
-  end
-end
-
-defmodule Article do
-  use Ecto.Schema
-  import Ecto.Changeset
-
-  schema "articles" do
+  schema "blog_articles" do
+    field :breaking, :boolean, default: false
+    field :content, :string
     field :title, :string
-    field :breaking, :boolean
-    field :slug, ComplexSlug.Type
+
+    field :slug, TitleSlug.Type
+
+    timestamps()
   end
 
-  @required_fields ~w(title breaking)
-  @optional_fields ~w(slug)
-
-  def changeset(model, params \\ :empty) do
-    model
-    |> cast(params, @required_fields, @optional_fields)
-    |> ComplexSlug.maybe_generate_slug
-    |> ComplexSlug.unique_constraint
+  def changeset(%Article{} = article, attrs) do
+    article
+    |> cast(attrs, [:title, :content, :breaking])
+    |> validate_required([:title, :content])
+    |> unique_constraint(:title)
+    |> TitleSlug.maybe_generate_slug
+    |> TitleSlug.unique_constraint
   end
 end
 ```
+
+More complex examples are cover in [this tutorial](https://medium.com/wemake-services/creating-slugs-for-ecto-schemas-7349513410f0).
 
 ## Changelog
 

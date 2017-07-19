@@ -1,11 +1,19 @@
 # Contributing to EctoAutoslugField
 
 ## Pull Requests Welcome
-1. Fork ecto_autoslug_field
+1. Fork `ecto_autoslug_field`
 2. Create a topic branch
 3. Make logically-grouped commits with clear commit messages
 4. Push commits to your fork
-5. Open a pull request against ecto_autoslug_field/master
+5. Open a pull request against `ecto_autoslug_field/master`
+
+## Development
+
+Please, make sure that all these commands succeed before pushing anything:
+
+1. `mix test`
+2. `mix credo --strict`
+3. `mix dialyzer` (it may take long on the first run)
 
 ## Issues
 

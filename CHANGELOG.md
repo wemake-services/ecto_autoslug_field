@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## Version 0.3.1
+
+### Improvements
+
+- Adds `build_slug/2` to accept the original `changeset` as the second argument, it still receives list of `sources` as the first argument
+- Updates `build_slug/1` inner logic
+
+### Documentation
+
+- Updates `README.md` with the new example
+- Updates docs to handle new changes
+- Updates `CONTRIBUTING.md` with 'Development' section
+
+### Testing
+
+- Adds new test cases to cover `build_slug/2`
+
 
 ## Version 0.3.0
 
