@@ -80,7 +80,7 @@ defmodule EctoSlugs.Blog.Article do
 end
 ```
 
-More complex examples are cover in [this tutorial](https://medium.com/wemake-services/creating-slugs-for-ecto-schemas-7349513410f0).
+More complex examples are covered in [this tutorial](https://medium.com/wemake-services/creating-slugs-for-ecto-schemas-7349513410f0).
 
 ## Changelog
 
