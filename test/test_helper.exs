@@ -9,6 +9,11 @@ defmodule EctoAutoslugField.Test.TestSchema.MultipleSourcesSlug do
     to: :multiple_sources_slug
 end
 
+defmodule EctoAutoslugField.Test.TestSchema.IdFieldSlug do
+  use EctoAutoslugField.Slug, from: [:name, :company, :link_id],
+    to: :id_field_slug
+end
+
 defmodule EctoAutoslugField.Test.TestSchema.ComplexSlug do
   use EctoAutoslugField.Slug, to: :complex_slug
 
@@ -48,6 +53,7 @@ defmodule EctoAutoslugField.Test.User do
 
   alias EctoAutoslugField.Test.TestSchema.SimpleSlug
   alias EctoAutoslugField.Test.TestSchema.MultipleSourcesSlug
+  alias EctoAutoslugField.Test.TestSchema.IdFieldSlug
   alias EctoAutoslugField.Test.TestSchema.ComplexSlug
   alias EctoAutoslugField.Test.TestSchema.ConditionalSlug
   alias EctoAutoslugField.Test.TestSchema.AlwaysChangeSlug
@@ -55,9 +61,11 @@ defmodule EctoAutoslugField.Test.User do
   schema "user" do
     field :name, :string
     field :company, :string
+    field :link_id, :integer
 
     field :simple_slug, SimpleSlug.Type
     field :multiple_sources_slug, MultipleSourcesSlug.Type
+    field :id_field_slug, IdFieldSlug.Type
     field :complex_slug, ComplexSlug.Type
     field :conditional_slug, ConditionalSlug.Type
     field :changing_slug, AlwaysChangeSlug.Type
@@ -67,8 +75,10 @@ defmodule EctoAutoslugField.Test.User do
     all_fields = [
       :name,
       :company,
+      :link_id,
       :simple_slug,
       :multiple_sources_slug,
+      :id_field_slug,
       :complex_slug,
       :conditional_slug,
       :changing_slug,
@@ -79,6 +89,7 @@ defmodule EctoAutoslugField.Test.User do
     |> validate_required([:name])
     |> SimpleSlug.maybe_generate_slug
     |> MultipleSourcesSlug.maybe_generate_slug
+    |> IdFieldSlug.maybe_generate_slug
     |> ComplexSlug.maybe_generate_slug
     |> ConditionalSlug.maybe_generate_slug
     |> AlwaysChangeSlug.maybe_generate_slug

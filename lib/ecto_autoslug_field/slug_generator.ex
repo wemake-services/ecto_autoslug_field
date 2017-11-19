@@ -88,7 +88,8 @@ defmodule EctoAutoslugField.SlugGenerator do
   defp get_field_data(_, source, _) when is_binary(source), do: source
 
   defp has_value?(nil), do: false
-  defp has_value?(string) do
+  defp has_value?(string) when is_binary(string) do
     String.strip(string) != ""
   end
+  defp has_value?(_), do: true
 end
