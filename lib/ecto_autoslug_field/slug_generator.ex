@@ -89,7 +89,7 @@ defmodule EctoAutoslugField.SlugGenerator do
 
   defp has_value?(nil), do: false
   defp has_value?(string) when is_binary(string) do
-    String.strip(string) != ""
+    String.trim(string) != ""
   end
   defp has_value?(_), do: true
 end
