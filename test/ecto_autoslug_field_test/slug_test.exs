@@ -2,7 +2,10 @@ defmodule EctoAutoslugField.SlugTest do
   use ExUnit.Case
   alias EctoAutoslugField.Test.User
 
-  @valid_attrs %{name: "Nikita Sobolev", company: "wemake.services", link_id: 1}
+  @valid_attrs %{name: "Nikita Sobolev", company: "wemake.services",
+    link_id: 1, date_field: ~N[2015-02-20 00:00:00], time_field: ~N[2000-01-01 19:50:07],
+    naive_datetime_field: ~N[2015-01-21 23:34:07], utc_datetime_field: ~N[2015-11-03 03:14:07],
+    float_amount: 2.31, decimal_amount: Decimal.new(4.765), flag: true}
 
   setup do
     {:ok, %{user: User.changeset(%User{}, @valid_attrs)}}
@@ -24,6 +27,16 @@ defmodule EctoAutoslugField.SlugTest do
   test "id field slug", %{user: user} do
     assert user.changes.id_field_slug == \
       "nikita-sobolev-wemake-services-1"
+  end
+
+  test "datetime field slug", %{user: user} do
+    assert user.changes.datetime_slug == \
+      "nikita-sobolev-wemake-services-2015-02-20-19-50-07-2015-01-21-23-34-07-2015-11-03-03-14-07z"
+  end
+
+  test "multitype field slug", %{user: user} do
+    assert user.changes.multitype_slug == \
+      "nikita-sobolev-wemake-services-2-31-4-765-true"
   end
 
   test "multiple source when some are not set" do
