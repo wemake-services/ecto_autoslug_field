@@ -1,7 +1,7 @@
 defmodule EctoAutoslugField.Mixfile do
   use Mix.Project
 
-  @version "0.3.1"
+  @version "0.3.2"
   @url "https://github.com/sobolevn/ecto_autoslug_field"
 
   def project do
@@ -38,10 +38,10 @@ defmodule EctoAutoslugField.Mixfile do
   end
 
   defp deps do
-    [{:ecto, "~> 2.1"},
+    [{:ecto, ">= 2.1.0"},
 
      # Slugs:
-     {:slugger, "~> 0.2"},
+     {:slugger, ">= 0.2.0"},
 
      # Testing:
      {:excoveralls, "~> 0.5", only: :test},

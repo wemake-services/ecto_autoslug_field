@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## Version 0.3.2
+
+### Improvements
+
+- Adds support for [numeric, datetime and date fields](https://github.com/sobolevn/ecto_autoslug_field/pull/18)
+- Updates dependencies, now supports `ecto >= 2.1`
+
+### Documentation
+
+- Updates `README.md` with the new `ecto` version
+
+### Testing
+
+- Adds new test cases to cover new field types
+
+
 ## Version 0.3.1
 
 ### Improvements
