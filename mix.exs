@@ -7,7 +7,7 @@ defmodule EctoAutoslugField.Mixfile do
   def project do
     [app: :ecto_autoslug_field,
      version: @version,
-     elixir: "~> 1.2",
+     elixir: "~> 1.4",
      deps: deps(),
 
      build_embedded: Mix.env == :prod,
