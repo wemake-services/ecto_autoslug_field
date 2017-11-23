@@ -10,6 +10,9 @@ defmodule EctoAutoslugField.Mixfile do
      elixir: "~> 1.2",
      deps: deps(),
 
+     build_embedded: Mix.env == :prod,
+     start_permanent: Mix.env == :prod,
+
      # Hex:
      docs: docs(),
      description: description(),
@@ -43,10 +46,10 @@ defmodule EctoAutoslugField.Mixfile do
      # Testing:
      {:excoveralls, "~> 0.5", only: :test},
      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
-     {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
+     {:dialyxir, "~> 0.5", only: :dev, runtime: false},
 
      # Documentation:
-     {:ex_doc, ">= 0.0.0", only: :dev}]
+     {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}]
   end
 
   defp description do
