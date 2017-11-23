@@ -12,7 +12,7 @@ You can find the full documentation online: [docs](https://hexdocs.pm/ecto_autos
 
 ```elixir
 def deps do
-  # installation via hex (version 0.3 only supports `{:ecto, ">= 2.1"}`):
+  # installation via hex (version 0.3 and onwards only supports `{:ecto, ">= 2.1"}`):
   [{:ecto_autoslug_field, "~> 0.3"}]
 
   # if you want to use github:
