@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## Master
+
+- Adds `force_generate_slug` function to the client API. This function may be used when the `always_change` option of the slug is maybe not set to `true` but you want to override this setting on the given changeset and force regeneration of the slug.
+
 ## Version 0.4.0
 
 ### Improvements
