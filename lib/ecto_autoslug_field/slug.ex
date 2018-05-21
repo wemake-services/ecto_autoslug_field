@@ -121,7 +121,17 @@ defmodule EctoAutoslugField.Slug do
           to: :slug_field, always_change: true
       end
 
-  Be careful with this option, since
+  If you want to change slug for only one instance
+  without setting `always_change` option, use `force_generate_slug/1` function:
+
+      defmodule SimpleSlugForce do
+        use EctoAutoslugField.Slug, from: :name, to: :some_slug
+      end
+
+  Then you can use `SimpleSlugForce.force_generate_slug(changeset)`
+  for any instances, that needs to recreate slugs for some reason.
+
+  Be careful with these options, since
   [cool URIs do not change](https://www.w3.org/Provider/Style/URI.html).
   """
 

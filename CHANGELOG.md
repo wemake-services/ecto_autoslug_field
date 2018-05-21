@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## Version 0.5.1
+
+### Documentation
+
+- Updates docs on using `force_update_slug`
+
+
 ## Version 0.5.0
 
 ### Improvements
