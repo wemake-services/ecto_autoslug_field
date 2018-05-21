@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/sobolevn/ecto_autoslug_field.svg?branch=master)](https://travis-ci.org/sobolevn/ecto_autoslug_field) [![Coverage Status](https://coveralls.io/repos/github/sobolevn/ecto_autoslug_field/badge.svg?branch=master)](https://coveralls.io/github/sobolevn/ecto_autoslug_field?branch=master) [![Hex Version](https://img.shields.io/hexpm/v/ecto_autoslug_field.svg)](https://hex.pm/packages/ecto_autoslug_field) [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg)](http://opensource.org/licenses/MIT)
 
-`ecto_autoslug_field` is a reusable [`Ecto`](https://github.com/elixir-ecto/ecto) library which can automatically create slugs from other fields. We use [`slugger`](https://github.com/h4cc/slugger) as it's default slug-engine.
+`ecto_autoslug_field` is a reusable [`Ecto`](https://github.com/elixir-ecto/ecto) library which can automatically create slugs from other fields. We use [`slugger`](https://github.com/h4cc/slugger) as a default slug-engine.
 
 
 ## Installation
@@ -70,7 +70,8 @@ defmodule EctoSlugs.Blog.Article do
 end
 ```
 
-More complex examples are covered in [this tutorial](https://medium.com/wemake-services/creating-slugs-for-ecto-schemas-7349513410f0).
+See [this tutorial](https://medium.com/wemake-services/creating-slugs-for-ecto-schemas-7349513410f0)
+for some more examples.
 
 
 ## Changelog
