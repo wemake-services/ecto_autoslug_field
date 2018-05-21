@@ -4,6 +4,10 @@ defmodule EctoAutoslugField.Test.TestSchema.SimpleSlug do
   use EctoAutoslugField.Slug, from: :name, to: :simple_slug
 end
 
+defmodule EctoAutoslugField.Test.TestSchema.SimpleSlugForce do
+  use EctoAutoslugField.Slug, from: :name, to: :simple_slug_force
+end
+
 defmodule EctoAutoslugField.Test.TestSchema.MultipleSourcesSlug do
   use EctoAutoslugField.Slug, from: [:name, :company],
     to: :multiple_sources_slug
@@ -15,14 +19,14 @@ defmodule EctoAutoslugField.Test.TestSchema.IdFieldSlug do
 end
 
 defmodule EctoAutoslugField.Test.TestSchema.DateTimeSlug do
-  use EctoAutoslugField.Slug, 
+  use EctoAutoslugField.Slug,
     from: [:name, :company, :date_field, :time_field,
            :naive_datetime_field, :utc_datetime_field],
     to: :datetime_slug
 end
 
 defmodule EctoAutoslugField.Test.TestSchema.MultiTypeSlug do
-  use EctoAutoslugField.Slug, 
+  use EctoAutoslugField.Slug,
     from: [:name, :company, :float_amount, :decimal_amount, :flag],
     to: :multitype_slug
 end
@@ -65,6 +69,7 @@ defmodule EctoAutoslugField.Test.User do
   import Ecto.Changeset
 
   alias EctoAutoslugField.Test.TestSchema.SimpleSlug
+  alias EctoAutoslugField.Test.TestSchema.SimpleSlugForce
   alias EctoAutoslugField.Test.TestSchema.MultipleSourcesSlug
   alias EctoAutoslugField.Test.TestSchema.IdFieldSlug
   alias EctoAutoslugField.Test.TestSchema.DateTimeSlug
@@ -86,6 +91,7 @@ defmodule EctoAutoslugField.Test.User do
     field :utc_datetime_field, :utc_datetime
 
     field :simple_slug, SimpleSlug.Type
+    field :simple_slug_force, SimpleSlugForce.Type
     field :multiple_sources_slug, MultipleSourcesSlug.Type
     field :id_field_slug, IdFieldSlug.Type
     field :datetime_slug, DateTimeSlug.Type
@@ -108,6 +114,7 @@ defmodule EctoAutoslugField.Test.User do
       :naive_datetime_field,
       :utc_datetime_field,
       :simple_slug,
+      :simple_slug_force,
       :multiple_sources_slug,
       :id_field_slug,
       :datetime_slug,
@@ -128,6 +135,7 @@ defmodule EctoAutoslugField.Test.User do
     |> ComplexSlug.maybe_generate_slug
     |> ConditionalSlug.maybe_generate_slug
     |> AlwaysChangeSlug.maybe_generate_slug
+    |> SimpleSlugForce.force_generate_slug
   end
 end
 

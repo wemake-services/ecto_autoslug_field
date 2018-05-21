@@ -155,21 +155,35 @@ defmodule EctoAutoslugField.Slug do
         def dump(value), do: Type.dump(value)
       end
 
-      # Public functions:
-
-      def maybe_generate_slug(changeset) do
-        opts = [
+      defp generate_slug_opts do
+        [
           from: @from,
           to: @to,
           always_change: @always_change,
           slug_builder: &build_slug/2
         ]
+      end
 
-        sources = if opts[:from] == nil do
+      defp generate_slug_sources(changeset, opts) do
+        if opts[:from] == nil do
           get_sources(changeset, opts)
         else
           @from
         end
+      end
+
+      # Public functions:
+
+      def maybe_generate_slug(changeset) do
+        opts = generate_slug_opts()
+        sources = generate_slug_sources(changeset, opts)
+
+        SlugBase.maybe_generate_slug(changeset, sources, opts)
+      end
+
+      def force_generate_slug(changeset) do
+        opts = generate_slug_opts() |> Keyword.put(:always_change, true)
+        sources = generate_slug_sources(changeset, opts)
 
         SlugBase.maybe_generate_slug(changeset, sources, opts)
       end

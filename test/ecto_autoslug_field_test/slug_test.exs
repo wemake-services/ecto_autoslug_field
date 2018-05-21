@@ -8,7 +8,7 @@ defmodule EctoAutoslugField.SlugTest do
     float_amount: 2.31, decimal_amount: Decimal.new(4.765), flag: true}
 
   setup do
-    {:ok, %{user: User.changeset(%User{}, @valid_attrs)}}
+    {:ok, %{user: User.changeset(%User{simple_slug_force: "foo-bar"}, @valid_attrs)}}
   end
 
   test "changeset is valid", %{user: user} do
@@ -17,6 +17,10 @@ defmodule EctoAutoslugField.SlugTest do
 
   test "simple slug", %{user: user} do
     assert user.changes.simple_slug == "nikita-sobolev"
+  end
+
+  test "simple slug force regeneration", %{user: user} do
+    assert user.changes.simple_slug_force == "nikita-sobolev"
   end
 
   test "multiple sources slug", %{user: user} do
