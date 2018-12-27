@@ -5,7 +5,7 @@ defmodule EctoAutoslugField.SlugTest do
   @valid_attrs %{name: "Nikita Sobolev", company: "wemake.services",
     link_id: 1, date_field: ~N[2015-02-20 00:00:00], time_field: ~N[2000-01-01 19:50:07],
     naive_datetime_field: ~N[2015-01-21 23:34:07], utc_datetime_field: ~N[2015-11-03 03:14:07],
-    float_amount: 2.31, decimal_amount: Decimal.new(4.765), flag: true}
+    float_amount: 2.31, decimal_amount: Decimal.from_float(4.765), flag: true}
 
   setup do
     {:ok, %{user: User.changeset(%User{simple_slug_force: "foo-bar"}, @valid_attrs)}}

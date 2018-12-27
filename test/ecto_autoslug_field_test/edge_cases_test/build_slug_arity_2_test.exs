@@ -30,7 +30,7 @@ defmodule EctoAutoslugField.SlugTest.EdgeCases.Arity2 do
 
   setup do
     {:ok, %{article: Article.changeset(
-      %Article{}, %{"title": "Some article title"})
+      %Article{}, %{"title" => "Some article title"})
     }}
   end
 
