@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## Version 1.0.0
+
+### Improvements
+
+- Adds support for `ecto >= 3.0`
+- Adds official support for `elixir == 1.6` and `elixir == 1.7`
+
+
 ## Version 0.5.1
 
 ### Documentation

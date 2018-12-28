@@ -4,14 +4,15 @@
 
 `ecto_autoslug_field` is a reusable [`Ecto`](https://github.com/elixir-ecto/ecto) library which can automatically create slugs from other fields. We use [`slugger`](https://github.com/h4cc/slugger) as a default slug-engine.
 
-Note for Ecto >3: we only depend on the `ecto` package (we do not deal with `ecto_sql` at all).
+We only depend on the `ecto` package (we do not deal with `ecto_sql` at all).
+We support `ecto >= 2.1 and ecto < 4`!
 
 
 ## Installation
 
 ```elixir
 def deps do
-  [{:ecto_autoslug_field, "~> 0.5"}]
+  [{:ecto_autoslug_field, "~> 1.0"}]
 end
 ```
 
