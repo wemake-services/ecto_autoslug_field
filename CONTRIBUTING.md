@@ -1,6 +1,7 @@
 # Contributing to EctoAutoslugField
 
 ## Pull Requests Welcome
+
 1. Fork `ecto_autoslug_field`
 2. Create a topic branch
 3. Make logically-grouped commits with clear commit messages
@@ -11,6 +12,7 @@
 
 Please, make sure that all these commands succeed before pushing anything:
 
+0. `mix format` your code
 1. `mix test`
 2. `mix credo --strict`
 3. `mix dialyzer` (it may take long on the first run)

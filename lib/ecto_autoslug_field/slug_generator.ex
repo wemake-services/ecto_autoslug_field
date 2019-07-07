@@ -45,11 +45,14 @@ defmodule EctoAutoslugField.SlugGenerator do
   # Private functions:
 
   defp do_build_slug(source) when is_binary(source) do
-    source |> Slugger.slugify_downcase()
+    source
+    |> Slugger.slugify_downcase()
   end
 
   defp do_build_slug(sources) do
-    sources |> Enum.join("-") |> Slugger.slugify_downcase()
+    sources
+    |> Enum.join("-")
+    |> Slugger.slugify_downcase()
   end
 
   defp do_generate_slug(changeset, sources, opts) do

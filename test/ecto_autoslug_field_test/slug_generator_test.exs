@@ -11,7 +11,7 @@ defmodule EctoAutoslugField.SlugGeneratorTest do
      %{
        user: User.changeset(%User{}, @valid_attrs),
        opts: [
-         to: :slug,
+         to: :simple_slug,
          slug_builder: &build_slug/2
        ]
      }}
@@ -19,18 +19,18 @@ defmodule EctoAutoslugField.SlugGeneratorTest do
 
   test "maybe_generate_slug with single source", fixture do
     changeset = maybe_generate_slug(fixture.user, :name, fixture.opts)
-    assert changeset.changes.slug == "nikita-sobolev"
+    assert changeset.changes.simple_slug == "nikita-sobolev"
   end
 
   test "maybe_generate_slug with multiple sources", fixture do
     changeset =
       maybe_generate_slug(fixture.user, [:name, :company], fixture.opts)
 
-    assert changeset.changes.slug == "nikita-sobolev-wemake-services"
+    assert changeset.changes.simple_slug == "nikita-sobolev-wemake-services"
   end
 
   test "maybe_generate_slug with 'nil'", fixture do
     changeset = maybe_generate_slug(fixture.user, nil, fixture.opts)
-    refute Map.has_key?(changeset.changes, fixture.opts[:to])
+    assert Map.has_key?(changeset.changes, fixture.opts[:to])
   end
 end
