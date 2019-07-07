@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## WIP
+
+Breaking features:
+
+- Now supports `elixir>=1.6`
+- Now support only `ecto>=3.1`
+
+### Improvements
+
+- Adds `mix format`
+
+
 ## Version 1.0.0
 
 ### Improvements

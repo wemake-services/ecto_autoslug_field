@@ -2,13 +2,22 @@ defmodule EctoAutoslugField.SlugTest do
   use ExUnit.Case
   alias EctoAutoslugField.Test.User
 
-  @valid_attrs %{name: "Nikita Sobolev", company: "wemake.services",
-    link_id: 1, date_field: ~N[2015-02-20 00:00:00], time_field: ~N[2000-01-01 19:50:07],
-    naive_datetime_field: ~N[2015-01-21 23:34:07], utc_datetime_field: ~N[2015-11-03 03:14:07],
-    float_amount: 2.31, decimal_amount: Decimal.from_float(4.765), flag: true}
+  @valid_attrs %{
+    name: "Nikita Sobolev",
+    company: "wemake.services",
+    link_id: 1,
+    date_field: ~N[2015-02-20 00:00:00],
+    time_field: ~N[2000-01-01 19:50:07],
+    naive_datetime_field: ~N[2015-01-21 23:34:07],
+    utc_datetime_field: ~N[2015-11-03 03:14:07],
+    float_amount: 2.31,
+    decimal_amount: Decimal.from_float(4.765),
+    flag: true
+  }
 
   setup do
-    {:ok, %{user: User.changeset(%User{simple_slug_force: "foo-bar"}, @valid_attrs)}}
+    {:ok,
+     %{user: User.changeset(%User{simple_slug_force: "foo-bar"}, @valid_attrs)}}
   end
 
   test "changeset is valid", %{user: user} do
@@ -24,23 +33,22 @@ defmodule EctoAutoslugField.SlugTest do
   end
 
   test "multiple sources slug", %{user: user} do
-    assert user.changes.multiple_sources_slug == \
-      "nikita-sobolev-wemake-services"
+    assert user.changes.multiple_sources_slug ==
+             "nikita-sobolev-wemake-services"
   end
 
   test "id field slug", %{user: user} do
-    assert user.changes.id_field_slug == \
-      "nikita-sobolev-wemake-services-1"
+    assert user.changes.id_field_slug == "nikita-sobolev-wemake-services-1"
   end
 
   test "datetime field slug", %{user: user} do
-    assert user.changes.datetime_slug == \
-      "nikita-sobolev-wemake-services-2015-02-20-19-50-07-2015-01-21-23-34-07-2015-11-03-03-14-07z"
+    assert user.changes.datetime_slug ==
+             "nikita-sobolev-wemake-services-2015-02-20-19-50-07-2015-01-21-23-34-07-2015-11-03-03-14-07z"
   end
 
   test "multitype field slug", %{user: user} do
-    assert user.changes.multitype_slug == \
-      "nikita-sobolev-wemake-services-2-31-4-765-true"
+    assert user.changes.multitype_slug ==
+             "nikita-sobolev-wemake-services-2-31-4-765-true"
   end
 
   test "multiple source when some are not set" do
@@ -53,8 +61,7 @@ defmodule EctoAutoslugField.SlugTest do
   end
 
   test "conditional slug", %{user: user} do
-    assert user.changes.conditional_slug == \
-      "nikita-sobolev-wemake-services"
+    assert user.changes.conditional_slug == "nikita-sobolev-wemake-services"
 
     no_company = User.changeset(%User{}, %{name: "Nikita Sobolev"})
     assert no_company.changes.conditional_slug == "nikita-sobolev"
@@ -64,7 +71,7 @@ defmodule EctoAutoslugField.SlugTest do
     user = %User{
       id: 1,
       changing_slug: "nikita-sobolev",
-      name: "Nikita Sobolev",
+      name: "Nikita Sobolev"
     }
 
     changeset = User.changeset(user, %{name: "Sobolev Nikita"})
@@ -78,7 +85,7 @@ defmodule EctoAutoslugField.SlugTest do
       simple_slug: "nikita-sobolev",
       conditional_slug: "nikita-sobolev",
       complex_slug: "nikita+sobolev+wemake+services",
-      multiple_sources_slug: "nikita-sobolev",
+      multiple_sources_slug: "nikita-sobolev"
     }
 
     changeset = User.changeset(user, %{name: "Sobolev Nikita"})
@@ -90,14 +97,15 @@ defmodule EctoAutoslugField.SlugTest do
 
   test "unique_constraint sets the constraint", %{user: user} do
     alias EctoAutoslugField.Test.TestSchema.SimpleSlug
-    constrained = user |> SimpleSlug.unique_constraint
+    constrained = user |> SimpleSlug.unique_constraint()
+
     assert %{
-      constraint: "user_simple_slug_index",
-      field: :simple_slug,
-      error_message: "has already been taken",
-      error_type: :unique,
-      type: :unique,
-      match: :exact
-    } in constrained.constraints
+             constraint: "user_simple_slug_index",
+             field: :simple_slug,
+             error_message: "has already been taken",
+             error_type: :unique,
+             type: :unique,
+             match: :exact
+           } in constrained.constraints
   end
 end

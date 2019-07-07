@@ -5,17 +5,18 @@ defmodule EctoAutoslugField.SlugGenerator do
   It is suited for inner use.
   """
 
-  import Ecto.Changeset, only: [
-    put_change: 3,
-    get_change: 3,
-  ]
+  import Ecto.Changeset,
+    only: [
+      put_change: 3,
+      get_change: 3
+    ]
 
   @doc """
   This is a public wrapper around `do_build_slug/1` functions.
 
   Default slug builder.
   """
-  @spec build_slug(Keyword.t, Changeset.t) :: String.t
+  @spec build_slug(Keyword.t(), Changeset.t()) :: String.t()
   def build_slug(sources, _changeset) do
     do_build_slug(sources)
   end
@@ -25,17 +26,18 @@ defmodule EctoAutoslugField.SlugGenerator do
 
   This function prepares sources and then calls `do_generate_slug/3`.
   """
-  @spec maybe_generate_slug(
-    Changeset.t, atom() | list(), Keyword.t) :: Changeset.t
+  @spec maybe_generate_slug(Changeset.t(), atom() | list(), Keyword.t()) ::
+          Changeset.t()
   def maybe_generate_slug(changeset, source, opts) when is_atom(source) do
     source_value = get_field_data(changeset, source, opts)
     do_generate_slug(changeset, source_value, opts)
   end
+
   def maybe_generate_slug(changeset, sources, opts) do
     cleaned_sources =
       sources
-      |> Enum.map(fn(v) -> get_field_data(changeset, v, opts) end)
-      |> Enum.filter(fn(v) -> has_value?(v) end)
+      |> Enum.map(fn v -> get_field_data(changeset, v, opts) end)
+      |> Enum.filter(fn v -> has_value?(v) end)
 
     do_generate_slug(changeset, cleaned_sources, opts)
   end
@@ -45,6 +47,7 @@ defmodule EctoAutoslugField.SlugGenerator do
   defp do_build_slug(source) when is_binary(source) do
     source |> Slugger.slugify_downcase()
   end
+
   defp do_build_slug(sources) do
     sources |> Enum.join("-") |> Slugger.slugify_downcase()
   end
@@ -68,6 +71,7 @@ defmodule EctoAutoslugField.SlugGenerator do
 
   defp do_put_change(changeset, _, _, []), do: changeset
   defp do_put_change(changeset, _, _, nil), do: changeset
+
   defp do_put_change(changeset, slug_key, slug_builder, sources) do
     # `slug_builder` will be called only if the slug-building occasion
     # was met and the `sources` is not empty.
@@ -85,11 +89,14 @@ defmodule EctoAutoslugField.SlugGenerator do
       source_value
     end
   end
+
   defp get_field_data(_, source, _) when is_binary(source), do: source
 
   defp has_value?(nil), do: false
+
   defp has_value?(string) when is_binary(string) do
     String.trim(string) != ""
   end
+
   defp has_value?(_), do: true
 end

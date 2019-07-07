@@ -10,15 +10,15 @@ defmodule EctoAutoslugField.SlugTest.EdgeCases.Exception do
     import Ecto.Changeset
 
     schema "articles" do
-      field :title, :string
-      field :slug, StringSource.Type
+      field(:title, :string)
+      field(:slug, StringSource.Type)
     end
 
     def changeset(model, params \\ :invalid) do
       model
       |> cast(params, [:title, :slug])
       |> validate_required([:title])
-      |> StringSource.maybe_generate_slug
+      |> StringSource.maybe_generate_slug()
     end
   end
 

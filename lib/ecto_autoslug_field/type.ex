@@ -15,5 +15,4 @@ defmodule EctoAutoslugField.Type do
 
   def dump(string) when is_binary(string), do: {:ok, string}
   def dump(_), do: :error
-
 end

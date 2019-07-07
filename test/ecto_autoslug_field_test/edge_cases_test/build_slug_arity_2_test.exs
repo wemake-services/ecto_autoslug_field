@@ -16,22 +16,24 @@ defmodule EctoAutoslugField.SlugTest.EdgeCases.Arity2 do
     import Ecto.Changeset
 
     schema "articles" do
-      field :title, :string
-      field :slug, StringSource.Type
+      field(:title, :string)
+      field(:slug, StringSource.Type)
     end
 
     def changeset(model, params \\ :invalid) do
       model
       |> cast(params, [:title, :slug])
       |> validate_required([:title])
-      |> StringSource.maybe_generate_slug
+      |> StringSource.maybe_generate_slug()
     end
   end
 
   setup do
-    {:ok, %{article: Article.changeset(
-      %Article{}, %{"title" => "Some article title"})
-    }}
+    {:ok,
+     %{
+       article:
+         Article.changeset(%Article{}, %{"title" => "Some article title"})
+     }}
   end
 
   test "changeset is valid", %{article: article} do
