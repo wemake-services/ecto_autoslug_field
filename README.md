@@ -7,12 +7,17 @@
 We only depend on the `ecto` package (we do not deal with `ecto_sql` at all).
 We support `ecto >= 2.1 and ecto < 4`!
 
+See [this blog post](https://sobolevn.me/2017/07/creating-slugs-for-ecto-schemas)
+for more information.
+
 
 ## Installation
 
 ```elixir
 def deps do
-  [{:ecto_autoslug_field, "~> 1.0"}]
+  [
+    {:ecto_autoslug_field, "~> 1.0"}
+  ]
 end
 ```
 
@@ -73,7 +78,7 @@ defmodule EctoSlugs.Blog.Article do
 end
 ```
 
-See [this tutorial](https://medium.com/wemake-services/creating-slugs-for-ecto-schemas-7349513410f0)
+See [this tutorial](https://sobolevn.me/2017/07/creating-slugs-for-ecto-schemas)
 for some more examples.
 
 
@@ -84,4 +89,4 @@ See [CHANGELOG.md](https://github.com/sobolevn/ecto_autoslug_field/blob/master/C
 
 ## License
 
-MIT. Please see [LICENSE.md](https://github.com/sobolevn/ecto_autoslug_field/blob/master/LICENSE.md) for licensing details.
+MIT. Please see [LICENSE](https://github.com/sobolevn/ecto_autoslug_field/blob/master/LICENSE) for licensing details.
