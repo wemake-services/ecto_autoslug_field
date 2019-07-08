@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## WIP
+## 2.0.0
 
 Breaking features:
 
