@@ -16,7 +16,7 @@ for more information.
 ```elixir
 def deps do
   [
-    {:ecto_autoslug_field, "~> 1.0"}
+    {:ecto_autoslug_field, "~> 2.0"}
   ]
 end
 ```
