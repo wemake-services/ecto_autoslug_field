@@ -157,7 +157,7 @@ defmodule EctoAutoslugField.Slug do
 
         It basically just calls the methods of the basic `Type` module.
         """
-        @behaviour Ecto.Type
+        use Ecto.Type
 
         alias EctoAutoslugField.Type
 
