@@ -3,7 +3,7 @@ defmodule EctoAutoslugField.Type do
   This module represents a simple wrapper around ':string' Ecto type.
   """
 
-  @behaviour Ecto.Type
+  use Ecto.Type
 
   def type, do: :string
 
