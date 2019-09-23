@@ -157,7 +157,7 @@ defmodule EctoAutoslugField.Slug do
 
         It basically just calls the methods of the basic `Type` module.
         """
-        use Ecto.Type
+        @behaviour Ecto.Type
 
         alias EctoAutoslugField.Type
 
@@ -165,6 +165,8 @@ defmodule EctoAutoslugField.Slug do
         def cast(value), do: Type.cast(value)
         def load(value), do: Type.load(value)
         def dump(value), do: Type.dump(value)
+        def embed_as(value), do: Type.embed_as(value)
+        def equal?(term1, term2), do: Type.equal?(term1, term2)
       end
 
       defp generate_slug_opts do

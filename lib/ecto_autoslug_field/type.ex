@@ -3,7 +3,7 @@ defmodule EctoAutoslugField.Type do
   This module represents a simple wrapper around ':string' Ecto type.
   """
 
-  use Ecto.Type
+  @behaviour Ecto.Type
 
   def type, do: :string
 
@@ -15,4 +15,8 @@ defmodule EctoAutoslugField.Type do
 
   def dump(string) when is_binary(string), do: {:ok, string}
   def dump(_), do: :error
+
+  def embed_as(_), do: :self
+
+  def equal?(term1, term2), do: term1 == term2
 end
