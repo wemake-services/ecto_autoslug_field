@@ -1,7 +1,7 @@
 defmodule EctoAutoslugField.Mixfile do
   use Mix.Project
 
-  @version "2.0.0"
+  @version "2.0.1"
   @url "https://github.com/sobolevn/ecto_autoslug_field"
 
   def project do

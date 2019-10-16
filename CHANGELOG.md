@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 2.0.1
+
+### Bugfixes
+
+- Fixed warnings with `ecto>=3.2`, see [#101](https://github.com/sobolevn/ecto_autoslug_field/pull/101)
+
+
 ## 2.0.0
 
 Breaking features:
