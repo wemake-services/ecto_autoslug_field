@@ -3,6 +3,7 @@
 /cover
 /deps
 /.elixir_ls
+/tmp
 erl_crash.dump
 *.ez
 

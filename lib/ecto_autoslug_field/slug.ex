@@ -35,7 +35,7 @@ defmodule EctoAutoslugField.SlugBase do
   @doc """
   This function is used to get sources for the slug.
 
-  There can be many usecases when this behavior is required,
+  There can be many use cases when this behavior is required,
   here are the brief examples:
 
     1. Conditional slug sources
