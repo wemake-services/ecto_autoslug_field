@@ -1,8 +1,8 @@
 defmodule EctoAutoslugField.Mixfile do
   use Mix.Project
 
+  @source_url "https://github.com/sobolevn/ecto_autoslug_field"
   @version "2.0.1"
-  @url "https://github.com/sobolevn/ecto_autoslug_field"
 
   def project do
     [
@@ -15,10 +15,7 @@ defmodule EctoAutoslugField.Mixfile do
 
       # Hex:
       docs: docs(),
-      description: description(),
       package: package(),
-      source_url: @url,
-      homepage_url: @url,
 
       # Test coverage:
       test_coverage: [tool: ExCoveralls],
@@ -51,24 +48,34 @@ defmodule EctoAutoslugField.Mixfile do
       {:dialyxir, "~> 1.0", only: :dev, runtime: false},
 
       # Documentation:
-      {:ex_doc, "~> 0.23.0", only: :dev, runtime: false}
+      {:ex_doc, ">= 0.23.0", only: :dev, runtime: false}
     ]
   end
 
-  defp description do
-    "Autoslug field for Ecto."
-  end
-
   defp docs do
-    [extras: ["README.md"], main: "readme"]
+    [
+      extras: [
+        "CHANGELOG.md",
+        "LICENSE.md": [title: "License"],
+        "README.md": [title: "Overview"]
+      ],
+      main: "readme",
+      source_url: @source_url,
+      homepage_url: @source_url,
+      formatters: ["html"]
+    ]
   end
 
   defp package do
     [
+      description: "Autoslug field for Ecto.",
       maintainers: ["Nikita Sobolev"],
       licenses: ["MIT"],
-      links: %{"GitHub" => @url},
-      files: ~w(mix.exs README.md lib)
+      files: ~w(mix.exs README.md lib),
+      links: %{
+        "Changelog" => "https://hexdocs.pm/ecto_autoslug_field/changelog.html",
+        "GitHub" => @source_url
+      }
     ]
   end
 end
