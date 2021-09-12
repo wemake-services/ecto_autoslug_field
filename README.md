@@ -1,12 +1,10 @@
 # EctoAutoslugField
 
-[![Build Status](https://travis-ci.org/sobolevn/ecto_autoslug_field.svg?branch=master)](https://travis-ci.org/sobolevn/ecto_autoslug_field)
+[![Build Status](https://github.com/sobolevn/ecto_autoslug_field/workflows/test/badge.svg?branch=master&event=push)](https://github.com/sobolevn/ecto_autoslug_field/actions?query=workflow%3Atest)
 [![Coverage Status](https://coveralls.io/repos/github/sobolevn/ecto_autoslug_field/badge.svg?branch=master)](https://coveralls.io/github/sobolevn/ecto_autoslug_field?branch=master)
 [![Module Version](https://img.shields.io/hexpm/v/ecto_autoslug_field.svg)](https://hex.pm/packages/ecto_autoslug_field)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/ecto_autoslug_field/)
-[![Total Download](https://img.shields.io/hexpm/dt/ecto_autoslug_field.svg)](https://hex.pm/packages/ecto_autoslug_field)
 [![License](https://img.shields.io/hexpm/l/ecto_autoslug_field.svg)](https://github.com/sobolevn/ecto_autoslug_field/blob/master/LICENSE)
-[![Last Updated](https://img.shields.io/github/last-commit/sobolevn/ecto_autoslug_field.svg)](https://github.com/sobolevn/ecto_autoslug_field/commits/master)
 
 `ecto_autoslug_field` is a reusable [`Ecto`](https://github.com/elixir-ecto/ecto) library which can automatically create slugs from other fields. We use [`slugger`](https://github.com/h4cc/slugger) as a default slug-engine.
 
