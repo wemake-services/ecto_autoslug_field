@@ -1,0 +1,73 @@
+name: test
+
+'on':
+  push:
+  pull_request:
+    branches:
+      # Branches from forks have the form 'user:branch-name'. Reference:
+      # https://github.community/t/how-to-trigger-an-action-on-push-or-pull-request-but-not-both/16662/9
+    - '**:**'
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    env:
+      MIX_ENV: test
+    strategy:
+      matrix:
+        elixir: ['1.10', '1.11', '1.12']
+        otp: ['23', '24']
+    continue-on-error: false
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup elixir
+      uses: erlef/setup-elixir@v1
+      with:
+        elixir-version: ${{ matrix.elixir }}
+        otp-version: ${{ matrix.otp }}
+
+    - name: Get deps cache
+      uses: actions/cache@v2
+      with:
+        path: deps/
+        key: deps-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('**/mix.lock') }}
+
+    - name: Get build cache
+      uses: actions/cache@v2
+      with:
+        path: _build/test/
+        key: build-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('**/mix.lock') }}
+
+    - name: Install Dependencies
+      run: |
+        mix local.rebar --force
+        mix local.hex --force
+        mix deps.get
+        mix compile
+    - name: Run linters
+      run: |
+        mix format --check-formatted
+        mix credo --strict
+    - name: Run Tests
+      run: mix coveralls.github
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Retrieve PLT Cache
+      uses: actions/cache@v2
+      id: plt-cache
+      with:
+        path: priv/plts
+        key: plts-${{ matrix.otp }}-${{ matrix.elixir }}-${{ hashFiles('**/mix.lock') }}
+
+    - name: Create PLTs
+      if: steps.plt-cache.outputs.cache-hit != 'true'
+      run: |
+        mkdir -p priv/plts
+        mix dialyzer --plt
+    - name: Run dialyzer
+      run: mix dialyzer --no-check

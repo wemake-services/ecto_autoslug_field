@@ -5,6 +5,8 @@ defmodule EctoAutoslugField.SlugGenerator do
   It is suited for inner use.
   """
 
+  alias Ecto.Changeset
+
   import Ecto.Changeset,
     only: [
       put_change: 3,
@@ -17,9 +19,7 @@ defmodule EctoAutoslugField.SlugGenerator do
   Default slug builder.
   """
   @spec build_slug(Keyword.t(), Changeset.t()) :: String.t()
-  def build_slug(sources, _changeset) do
-    do_build_slug(sources)
-  end
+  def build_slug(sources, _changeset), do: do_build_slug(sources)
 
   @doc """
   This function conditionally generates slug.
@@ -96,10 +96,6 @@ defmodule EctoAutoslugField.SlugGenerator do
   defp get_field_data(_, source, _) when is_binary(source), do: source
 
   defp has_value?(nil), do: false
-
-  defp has_value?(string) when is_binary(string) do
-    String.trim(string) != ""
-  end
-
+  defp has_value?(string) when is_binary(string), do: String.trim(string) != ""
   defp has_value?(_), do: true
 end

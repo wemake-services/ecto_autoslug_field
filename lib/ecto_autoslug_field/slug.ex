@@ -48,10 +48,12 @@ defmodule EctoAutoslugField.SlugBase do
     1. `atom`-key is supposed to identify the model field
     2. `binary`-key is treated as a data itself, it won't be changed
   """
-  @spec get_sources(Changeset.t(), Keyword.t()) ::
-          list(atom() | binary()) | none
+  @spec get_sources(Changeset.t(), Keyword.t()) :: list(atom() | binary())
   def get_sources(_changeset, [from: from] = _opts) do
+    # This code is only used in macros, so it is not tracked by `coveralls`.
+    # coveralls-ignore-start
     [from]
+    # coveralls-ignore-stop
   end
 
   @doc """
