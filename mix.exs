@@ -2,13 +2,13 @@ defmodule EctoAutoslugField.Mixfile do
   use Mix.Project
 
   @source_url "https://github.com/sobolevn/ecto_autoslug_field"
-  @version "2.0.1"
+  @version "3.0.0"
 
   def project do
     [
       app: :ecto_autoslug_field,
       version: @version,
-      elixir: "~> 1.6",
+      elixir: "~> 1.10",
       deps: deps(),
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
@@ -37,15 +37,15 @@ defmodule EctoAutoslugField.Mixfile do
 
   defp deps do
     [
-      {:ecto, ">= 2.1.0"},
+      {:ecto, ">= 3.7.0"},
 
       # Slugs:
-      {:slugger, ">= 0.2.0"},
+      {:slugger, ">= 0.3.0"},
 
       # Testing:
-      {:excoveralls, "~> 0.5", only: :test},
-      {:credo, "~> 1.0", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.0", only: :dev, runtime: false},
+      {:excoveralls, "~> 0.14", only: :test},
+      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.1", only: :dev, runtime: false},
 
       # Documentation:
       {:ex_doc, ">= 0.23.0", only: :dev, runtime: false}
