@@ -11,7 +11,7 @@
 `ecto_autoslug_field` is a reusable [`Ecto`](https://github.com/elixir-ecto/ecto) library which can automatically create slugs from other fields. We use [`slugger`](https://github.com/h4cc/slugger) as a default slug-engine.
 
 We only depend on the `ecto` package (we do not deal with `ecto_sql` at all).
-We support `ecto >= 2.1 and ecto < 4`!
+We support `ecto >= 3.7 and ecto < 4`!
 
 See [this blog post](https://sobolevn.me/2017/07/creating-slugs-for-ecto-schemas)
 for more information.
@@ -22,7 +22,7 @@ for more information.
 ```elixir
 def deps do
   [
-    {:ecto_autoslug_field, "~> 2.0"}
+    {:ecto_autoslug_field, "~> 3.0"}
   ]
 end
 ```
@@ -73,13 +73,13 @@ defmodule EctoSlugs.Blog.Article do
     timestamps()
   end
 
-  def changeset(%Article{} = article, attrs) do
-    article
-    |> cast(attrs, [:title, :content, :breaking])
+  def changeset(model, params \\ :invalid) do
+    model
+    |> cast(params, [:title, :content, :breaking])
     |> validate_required([:title, :content])
     |> unique_constraint(:title)
-    |> TitleSlug.maybe_generate_slug
-    |> TitleSlug.unique_constraint
+    |> TitleSlug.maybe_generate_slug()
+    |> TitleSlug.unique_constraint()
   end
 end
 ```
