@@ -6,6 +6,7 @@
 /tmp
 erl_crash.dump
 *.ez
+/priv/plts
 
 #### osx ####
 *.DS_Store
