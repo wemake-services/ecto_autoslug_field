@@ -6,7 +6,7 @@
 [![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/ecto_autoslug_field/)
 [![License](https://img.shields.io/hexpm/l/ecto_autoslug_field.svg)](https://github.com/sobolevn/ecto_autoslug_field/blob/master/LICENSE)
 
-`ecto_autoslug_field` is a reusable [`Ecto`](https://github.com/elixir-ecto/ecto) library which can automatically create slugs from other fields. We use [`slugger`](https://github.com/h4cc/slugger) as a default slug-engine.
+`ecto_autoslug_field` is a reusable [`Ecto`](https://github.com/elixir-ecto/ecto) library which can automatically create slugs from other fields. We use [`slugify`](https://github.com/jayjun/slugify) as a default slug-engine.
 
 We only depend on the `ecto` package (we do not deal with `ecto_sql` at all).
 We support `ecto >= 3.7 and ecto < 4`!
