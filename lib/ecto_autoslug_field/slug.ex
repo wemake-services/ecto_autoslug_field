@@ -75,7 +75,7 @@ defmodule EctoAutoslugField.SlugBase do
 
   It should return a `binary` or `nil`.
   """
-  @spec build_slug(Keyword.t(), Changeset.t() | nil) :: String.t()
+  @spec build_slug(Keyword.t(), Changeset.t() | nil) :: String.t() | nil
   def build_slug(sources, changeset),
     do: SlugGenerator.build_slug(sources, changeset)
 end

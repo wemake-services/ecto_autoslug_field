@@ -18,7 +18,7 @@ defmodule EctoAutoslugField.SlugGenerator do
 
   Default slug builder.
   """
-  @spec build_slug(Keyword.t(), Changeset.t()) :: String.t()
+  @spec build_slug(Keyword.t(), Changeset.t() | nil) :: String.t() | nil
   def build_slug(sources, _changeset), do: do_build_slug(sources)
 
   @doc """
