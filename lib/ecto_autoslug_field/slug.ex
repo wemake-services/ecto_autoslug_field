@@ -62,7 +62,7 @@ defmodule EctoAutoslugField.SlugBase do
   This function is a place to modify the result slug.
   For convenience you can call `super(sources, changeset)`
   which will return the slug binary.
-  `super(sources)` uses [`Slugger`](https://github.com/h4cc/slugger),
+  `super(sources)` uses [`slugify`](https://github.com/jayjun/slugify),
   but you can completely change slug-engine to your own.
 
   Note: this function will only be called if `sources` is not empty.
