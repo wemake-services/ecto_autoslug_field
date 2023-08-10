@@ -8,7 +8,7 @@ defmodule EctoAutoslugField.Mixfile do
     [
       app: :ecto_autoslug_field,
       version: @version,
-      elixir: "~> 1.12",
+      elixir: "~> 1.13",
       deps: deps(),
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
@@ -46,12 +46,12 @@ defmodule EctoAutoslugField.Mixfile do
       {:slugify, "~> 1.3"},
 
       # Testing:
-      {:excoveralls, "~> 0.14", only: :test},
-      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.1", only: [:dev, :test], runtime: false},
+      {:excoveralls, "~> 0.17", only: :test},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.3", only: [:dev, :test], runtime: false},
 
       # Documentation:
-      {:ex_doc, ">= 0.23.0", only: :dev, runtime: false}
+      {:ex_doc, ">= 0.30.0", only: :dev, runtime: false}
     ]
   end
 
