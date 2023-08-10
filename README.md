@@ -20,7 +20,7 @@ for more information.
 ```elixir
 def deps do
   [
-    {:ecto_autoslug_field, "~> 3.0"}
+    {:ecto_autoslug_field, "~> 3.1"}
   ]
 end
 ```
