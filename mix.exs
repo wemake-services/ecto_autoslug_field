@@ -47,6 +47,7 @@ defmodule EctoAutoslugField.Mixfile do
 
       # Testing:
       {:excoveralls, "~> 0.17", only: :test},
+      {:castore, "~> 1.0", only: :test, runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.3", only: [:dev, :test], runtime: false},
 
