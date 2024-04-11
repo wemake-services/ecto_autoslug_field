@@ -14,10 +14,10 @@ jobs:
     env:
       MIX_ENV: test
     strategy:
+      fail-fast: false
       matrix:
         elixir: ['1.13', '1.14', '1.15']
         otp: ['24', '25']
-    continue-on-error: false
 
     steps:
     - uses: actions/checkout@v4
