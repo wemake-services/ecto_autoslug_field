@@ -55,7 +55,7 @@ defmodule EctoAutoslugField.Test.TestSchema.ConditionalSlug do
   use EctoAutoslugField.Slug, to: :conditional_slug
 
   def get_sources(changeset, _opts) do
-    if Map.has_key?(changeset.changes(), :company) do
+    if Map.has_key?(changeset.changes, :company) do
       [:name, :company]
     else
       [:name]
