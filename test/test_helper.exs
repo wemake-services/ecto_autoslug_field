@@ -77,17 +77,16 @@ defmodule EctoAutoslugField.Test.User do
 
   import Ecto.Changeset
 
-  # credo:disable-for-next-line Credo.Check.Readability.AliasOrder
   alias EctoAutoslugField.Test.TestSchema.{
     AlwaysChangeSlug,
-    ConditionalSlug,
     ComplexSlug,
+    ConditionalSlug,
     DateTimeSlug,
     IdFieldSlug,
     MultiTypeSlug,
     MultipleSourcesSlug,
-    SimpleSlugForce,
-    SimpleSlug
+    SimpleSlug,
+    SimpleSlugForce
   }
 
   schema "user" do
