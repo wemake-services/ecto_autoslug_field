@@ -83,8 +83,8 @@ defmodule EctoAutoslugField.Test.User do
     ConditionalSlug,
     DateTimeSlug,
     IdFieldSlug,
-    MultiTypeSlug,
     MultipleSourcesSlug,
+    MultiTypeSlug,
     SimpleSlug,
     SimpleSlugForce
   }
