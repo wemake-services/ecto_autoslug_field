@@ -60,7 +60,7 @@ defmodule EctoAutoslugField.SlugGenerator do
     slug_builder = Keyword.get(opts, :slug_builder)
     always_change = Keyword.get(opts, :always_change, false)
 
-    slug_field = Map.get(changeset.data, slug_key)
+    slug_field = Ecto.Changeset.get_field(changeset, slug_key)
 
     if always_change == true or slug_field == nil do
       # We only generate slug on two occasions:
